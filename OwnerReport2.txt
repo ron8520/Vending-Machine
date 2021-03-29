@@ -1,0 +1,13 @@
+name	role
+ron	Cashier
+123	Customer
+abc	Customer
+Jay	Customer
+Jayce	Seller
+Sylvia	Seller
+John	Owner
+Anonymous	Customer
+Paul	Customer
+first	Customer
+second	Seller
+ada	Customer

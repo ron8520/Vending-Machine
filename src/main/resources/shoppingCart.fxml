@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="462.0" prefWidth="784.0" style="-fx-background-color: #212440;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="35.0" layoutY="45.0" text="Shopping Cart" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label layoutX="486.0" layoutY="45.0" text="Items" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="itemAmount" layoutX="463.0" layoutY="45.0" text="0" textFill="WHITE">
+         <font>
+            <Font name="Arial" size="20.0" />
+         </font>
+      </Label>
+      <Separator layoutX="31.0" layoutY="80.0" opacity="0.25" prefWidth="505.0" style="-fx-background-color: #589cf5;" />
+      <ScrollPane layoutX="30.0" layoutY="125.0" prefHeight="243.0" prefWidth="511.0" stylesheets="@table.css">
+         <content>
+            <VBox prefHeight="50.0" prefWidth="500.0" />
+            <VBox fx:id="items" prefHeight="50.0" prefWidth="500.0" />
+         </content>
+      </ScrollPane>
+      <Pane layoutX="550.0" prefHeight="462.0" prefWidth="244.0" style="-fx-background-color: #2e3257; -fx-background-radius: 30;">
+         <children>
+            <Label layoutX="19.0" layoutY="350.0" text="TOTAL COST" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Label>
+            <Button fx:id="btCheckOut" layoutX="35.0" layoutY="390.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="33.0" prefWidth="169.0" styleClass="button-checkout" stylesheets="@style.css" text="CheckOut" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Button>
+            <Separator layoutX="19.0" layoutY="330.0" opacity="0.25" prefWidth="200.0" style="-fx-background-color: #589cf5;" />
+            <Label layoutX="180.0" layoutY="350.0" text="\$" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="45.0" text="Payment Method" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="20.0" />
+               </font>
+            </Label>
+            <Separator layoutX="19.0" layoutY="80.0" opacity="0.25" prefWidth="200.0" style="-fx-background-color: #589cf5;" />
+            <JFXButton fx:id="btCard" alignment="CENTER" buttonType="RAISED" layoutX="50.0" layoutY="130.0" onAction="#handleMouseEvent" prefHeight="40.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-background-color: #6d3ef2;" text="Card" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@noun_credit%20cards_2372037.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="btCash" alignment="CENTER" buttonType="RAISED" layoutX="50.0" layoutY="225.0" onAction="#handleMouseEvent" prefHeight="40.0" prefWidth="140.0" style="-fx-background-radius: 10; -fx-background-color: #589cf5;" text="Cash" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="36.0" fitWidth="49.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@noun_cash_1889074.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <Label fx:id="totalCost" layoutX="194.0" layoutY="350.0" text="0.00" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label layoutX="19.0" layoutY="299.0" text="Select: " textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Label>
+            <Label fx:id="methodSelect" layoutX="65.0" layoutY="299.0" text=" " textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="13.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <ImageView fitHeight="23.0" fitWidth="21.0" layoutX="36.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@noun_Arrow_2039372.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="358.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="TOTAL">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="284.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRICE">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="182.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="QUANTITY">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="31.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PRODUCT NAME">
+         <font>
+            <Font name="Arial Bold" size="13.0" />
+         </font>
+      </Text>
+      <Label fx:id="goBack" layoutX="59.0" layoutY="380.0" onMouseClicked="#close" text="Continue Shopping" textFill="#589cf5">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

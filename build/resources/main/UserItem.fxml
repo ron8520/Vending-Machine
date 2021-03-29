@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="55.0" prefWidth="294.0" style="-fx-background-color: #2e3257;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="46.0" prefWidth="110.0">
+         <children>
+            <Label fx:id="lbName" alignment="CENTER" contentDisplay="CENTER" layoutX="10.0" layoutY="20.0" text="Tyson Thomas" textFill="WHITE">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="46.0" prefWidth="110.0">
+         <children>
+            <JFXTextField fx:id="lbRole" alignment="CENTER" focusColor="#587bf6" labelFloat="true" layoutX="18.0" layoutY="15.0" prefWidth="70.0" promptText="Customer" style="-fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="46.0" prefWidth="77.0">
+         <children>
+            <Button fx:id="btUpdate" layoutX="11.0" layoutY="15.0" mnemonicParsing="false" onAction="#handleMouseEvent" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #ce7c5b;" styleClass="button-report1" stylesheets="@button.css" text="Update" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="12.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

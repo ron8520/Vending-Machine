@@ -1,0 +1,28 @@
+username		category		price	quantity	code
+Kombucha			Drinks			3.5		6		1
+Pepsi			Drinks			3		13		14
+Juice			Drinks			3.5		14		2
+Coca Cola			Drinks			3		1		13
+Mentos			Candies			1.5		10		9
+Thins			Chips			5		6		11
+Coke Zero			Drinks			3.5		1		18
+Hampers			Chocolates			1		1		100
+Potato Chips			Chips			1.5		10		23
+Birthday Sur			Chocolates			2.5		5		120
+Pringles			Chips			6		5		16
+Haoshi			Chocolates			1.5		14		86
+a Chocolate			Chocolates			1		1		100
+Kinder			Chocolates			2		10		97
+Smiths			Chips			5.5		1		8
+Sprite			Drinks			3		7		15
+Hi-Chew			Candies			3		1		6
+Tonic Water			Drinks			4.5		9		50
+Ferrero Grand			Chocolates			1		0		20
+KitKat			Chocolates			2.5		1		25
+Snickers			Chocolates			3		7		7
+Kettle			Chips			4		6		5
+Milk Mini			Chocolates			2		5		3
+M&M			Chocolates			2		4		4
+Sour Cream			Chips			3.5		5		19
+Bounty			Chocolates			5		4		10
+Sour Patch			Candies			1		4		12

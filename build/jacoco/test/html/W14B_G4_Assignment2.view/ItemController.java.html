@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.view</a> &gt; <span class="el_source">ItemController.java</span></div><h1>ItemController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.view;
+
+import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.SQLException;
+import W14B_G4_Assignment2.database.*;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+
+public class ItemController extends Controller{
+
+    @FXML
+    private ImageView itemImage;
+
+    @FXML
+    private Label itemId;
+
+    @FXML
+    private Label itemName;
+
+    @FXML
+    private Label itemPrice;
+
+    @FXML
+    private Label itemStatus;
+
+    @FXML
+    private JFXTextField itemQuantity;
+
+    @FXML
+    private Button btAdd;
+
+    @FXML
+    private Image drink, chocolate, chip, candy;
+
+<span class="nc" id="L44">    private String error_status = &quot;Not Available&quot;;</span>
+
+    private ShoppingCartController cartController;
+
+<span class="nc" id="L48">    public ItemController(ShoppingCartController cartController) throws IOException{</span>
+<span class="nc" id="L49">        loadingImage();</span>
+<span class="nc" id="L50">        this.cartController = cartController;</span>
+<span class="nc" id="L51">    }</span>
+
+
+    @FXML
+    public void handleAction(ActionEvent event) throws IOException, SQLException {
+<span class="nc" id="L56">        String quantity = itemQuantity.getText();</span>
+
+<span class="nc bnc" id="L58" title="All 2 branches missed.">        if (!quantity.matches(&quot;\\d*&quot;)) {</span>
+<span class="nc" id="L59">            itemQuantity.setText(quantity.replaceAll(&quot;[^\\d]&quot;, &quot;&quot;));</span>
+<span class="nc" id="L60">            quantity = itemQuantity.getText();</span>
+        }
+
+<span class="nc bnc" id="L63" title="All 4 branches missed.">        if (quantity == null || quantity.length() &lt; 1){</span>
+<span class="nc" id="L64">            return;</span>
+        }
+
+<span class="nc" id="L67">        int q = Integer.valueOf(itemQuantity.getText());</span>
+
+<span class="nc bnc" id="L69" title="All 2 branches missed.">        if(q &lt; 0){</span>
+<span class="nc" id="L70">            itemStatus.setText(error_status);</span>
+<span class="nc" id="L71">            itemStatus.setTextFill(Color.web(&quot;#e35d68&quot;));</span>
+        }else{
+
+<span class="nc bnc" id="L74" title="All 2 branches missed.">            if(ItemData.verifyItemQuantity(itemName.getText(), q)){</span>
+<span class="nc" id="L75">                boolean result = cartController.addItems(itemName.getText(), q, Double.valueOf(itemPrice.getText().substring(2)));</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">                if (result == false){</span>
+<span class="nc" id="L77">                    itemStatus.setText(&quot;Added&quot;);</span>
+<span class="nc" id="L78">                    itemStatus.setTextFill(Color.web(&quot;#ce7c5b&quot;));</span>
+                }else{
+<span class="nc" id="L80">                    itemStatus.setText(&quot;Available&quot;);</span>
+<span class="nc" id="L81">                    itemStatus.setTextFill(Color.web(&quot;#6cca84&quot;));</span>
+                }
+<span class="nc" id="L83">            }else{</span>
+<span class="nc" id="L84">                itemStatus.setText(&quot;Out of Stock&quot;);</span>
+<span class="nc" id="L85">                itemStatus.setTextFill(Color.web(&quot;#ce7c5b&quot;));</span>
+            }
+        }
+
+
+<span class="nc" id="L90">    }</span>
+
+    public void setText(String type, String id, String name, String price){
+<span class="nc bnc" id="L93" title="All 5 branches missed.">        switch (type){</span>
+            case &quot;Drinks&quot;:
+<span class="nc" id="L95">                this.itemImage.setImage(drink);</span>
+<span class="nc" id="L96">                break;</span>
+            case &quot;Chocolates&quot;:
+<span class="nc" id="L98">                this.itemImage.setImage(chocolate);</span>
+<span class="nc" id="L99">                break;</span>
+            case &quot;Candies&quot;:
+<span class="nc" id="L101">                this.itemImage.setImage(candy);</span>
+<span class="nc" id="L102">                break;</span>
+            case &quot;Chips&quot;:
+<span class="nc" id="L104">                this.itemImage.setImage(chip);</span>
+                break;
+        }
+<span class="nc" id="L107">        this.itemId.setText(id);</span>
+<span class="nc" id="L108">        this.itemName.setText(name);</span>
+<span class="nc" id="L109">        this.itemPrice.setText(&quot;$ &quot; + price);</span>
+<span class="nc" id="L110">    }</span>
+
+    public void setStatus(int quantity){
+<span class="nc bnc" id="L113" title="All 2 branches missed.">        if (quantity &lt;= 0){</span>
+<span class="nc" id="L114">            itemStatus.setText(&quot;Out of Stock&quot;);</span>
+<span class="nc" id="L115">            itemStatus.setTextFill(Color.web(&quot;#e35d68&quot;));</span>
+        }else{
+<span class="nc" id="L117">            itemStatus.setText(&quot;Available&quot;);</span>
+<span class="nc" id="L118">            itemStatus.setTextFill(Color.web(&quot;#61d38b&quot;));</span>
+        }
+<span class="nc" id="L120">    }</span>
+
+<span class="nc" id="L122">    public String getId() { return itemId.getText(); }</span>
+<span class="nc" id="L123">    public String getName() { return itemName.getText(); }</span>
+<span class="nc" id="L124">    public String getPrice() { return itemPrice.getText(); }</span>
+<span class="nc" id="L125">    public String getStatus() { return itemStatus.getText(); }</span>
+<span class="nc" id="L126">    public String getQuantity() { return itemQuantity.getText(); }</span>
+
+    public void loadingImage() throws IOException{
+<span class="nc" id="L129">        drink = new Image(new FileInputStream(&quot;src/main/resources/noun_Drink_3583231.png&quot;));</span>
+<span class="nc" id="L130">        chocolate = new Image(new FileInputStream(&quot;src/main/resources/noun_Chocolate_1564420.png&quot;));</span>
+<span class="nc" id="L131">        chip = new Image(new FileInputStream(&quot;src/main/resources/noun_snack_1134821.png&quot;));</span>
+<span class="nc" id="L132">        candy = new Image(new FileInputStream(&quot;src/main/resources/noun_candy_3582024.png&quot;));</span>
+<span class="nc" id="L133">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

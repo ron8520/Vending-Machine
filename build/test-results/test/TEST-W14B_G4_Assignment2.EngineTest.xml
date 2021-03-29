@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="W14B_G4_Assignment2.EngineTest" tests="11" skipped="0" failures="0" errors="0" timestamp="2020-11-19T11:48:32" hostname="192-168-1-108.tpgi.com.au" time="24.02">
+  <properties/>
+  <testcase name="testVerifyCard()" classname="W14B_G4_Assignment2.EngineTest" time="1.777"/>
+  <testcase name="testAddCard()" classname="W14B_G4_Assignment2.EngineTest" time="2.193"/>
+  <testcase name="testAddItem()" classname="W14B_G4_Assignment2.EngineTest" time="1.756"/>
+  <testcase name="testPayByCash()" classname="W14B_G4_Assignment2.EngineTest" time="3.925"/>
+  <testcase name="testUserGetAndSet()" classname="W14B_G4_Assignment2.EngineTest" time="1.371"/>
+  <testcase name="testCalculatePaidCashes()" classname="W14B_G4_Assignment2.EngineTest" time="1.364"/>
+  <testcase name="testGetChange()" classname="W14B_G4_Assignment2.EngineTest" time="1.573"/>
+  <testcase name="testPayByCreditCard()" classname="W14B_G4_Assignment2.EngineTest" time="3.244"/>
+  <testcase name="testEnoughMoney()" classname="W14B_G4_Assignment2.EngineTest" time="2.125"/>
+  <testcase name="testCancelTransaction()" classname="W14B_G4_Assignment2.EngineTest" time="1.779"/>
+  <testcase name="testCalculateTotal()" classname="W14B_G4_Assignment2.EngineTest" time="2.908"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

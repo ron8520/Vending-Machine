@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="W14B_G4_Assignment2.ChangesDataTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2020-11-19T11:48:22" hostname="192-168-1-108.tpgi.com.au" time="9.274">
+  <properties/>
+  <testcase name="deductChangesTest()" classname="W14B_G4_Assignment2.ChangesDataTest" time="1.621"/>
+  <testcase name="modifyChangesTest()" classname="W14B_G4_Assignment2.ChangesDataTest" time="1.584"/>
+  <testcase name="modifyQuantityTooSmall()" classname="W14B_G4_Assignment2.ChangesDataTest" time="1.368"/>
+  <testcase name="addChangesTest()" classname="W14B_G4_Assignment2.ChangesDataTest" time="1.565"/>
+  <testcase name="countTest()" classname="W14B_G4_Assignment2.ChangesDataTest" time="1.578"/>
+  <testcase name="reportTest()" classname="W14B_G4_Assignment2.ChangesDataTest" time="1.555"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

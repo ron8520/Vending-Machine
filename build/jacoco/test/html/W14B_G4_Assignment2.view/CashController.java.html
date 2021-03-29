@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CashController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.view</a> &gt; <span class="el_source">CashController.java</span></div><h1>CashController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.view;
+
+import java.io.File;
+import java.util.*;
+
+import W14B_G4_Assignment2.database.ChangesData;
+import javafx.application.Platform;
+import com.jfoenix.controls.JFXButton;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import java.net.URL;
+import java.util.*;
+import java.sql.SQLException;
+import java.io.IOException;
+
+import W14B_G4_Assignment2.model.*;
+import javafx.stage.StageStyle;
+
+public class CashController extends Controller{
+<span class="nc" id="L25">    private double total = 0.0;</span>
+    private double insert;
+    private double change;
+    private Stage cashStage;
+    private Boolean enoughChange;
+    private Timer timer;
+    private TimerTask task;
+    private ShoppingCartController cart;
+
+    @FXML
+    private JFXButton btTwentyCent;
+
+    @FXML
+    private JFXButton btFiveDollar;
+
+    @FXML
+    private Label lbTotalCost;
+
+    @FXML
+    private JFXButton btFiftyCent;
+
+    @FXML
+    private JFXButton btTenDollar;
+
+    @FXML
+    private JFXButton btCancel;
+
+    @FXML
+    private JFXButton btConfirm;
+
+    @FXML
+    private Label timeMin;
+
+    @FXML
+    private JFXButton btTwentyDollar;
+
+    @FXML
+    private Label lbClean;
+
+    @FXML
+    private Label lbMessage;
+
+    @FXML
+    private Label timeSecond;
+
+    @FXML
+    private JFXButton btOneDollar;
+
+    @FXML
+    private JFXButton btTwoDollar;
+
+    @FXML
+    private Label lbInsert;
+
+    @FXML
+    private Label lbChange;
+
+    @FXML
+    private JFXButton btTenCent;
+
+    private LinkedHashMap&lt;String,Integer&gt; moneyInserted;
+
+    private String username;
+    private MachineEngine model;
+    private URL changeUrl;
+    private FXMLLoader changeFXML;
+    private ChangeController changeControl;
+    private Stage changeStage;
+
+<span class="nc" id="L94">    public CashController(ShoppingCartController cart) throws IOException{</span>
+<span class="nc" id="L95">        this.cashStage = cart.getPaymentStage();</span>
+<span class="nc" id="L96">        this.insert = 0.00;</span>
+<span class="nc" id="L97">        this.change = 0.00;</span>
+<span class="nc" id="L98">        this.enoughChange = true;</span>
+<span class="nc" id="L99">        this.username = cart.getUsername();</span>
+<span class="nc" id="L100">        this.cart = cart;</span>
+<span class="nc" id="L101">        this.model = cart.getEngine();</span>
+
+<span class="nc" id="L103">        setFXMLLoader();</span>
+<span class="nc" id="L104">    }</span>
+
+    public void setFXMLLoader() throws IOException{
+<span class="nc" id="L107">        changeUrl = new File(&quot;src/main/resources/change.fxml&quot;).toURL();</span>
+
+<span class="nc" id="L109">        changeStage = new Stage();</span>
+<span class="nc" id="L110">        changeStage.initStyle(StageStyle.UNDECORATED);</span>
+
+<span class="nc" id="L112">        changeFXML = new FXMLLoader();</span>
+<span class="nc" id="L113">        changeControl = new ChangeController(changeStage);</span>
+
+<span class="nc" id="L115">        changeFXML.setLocation(changeUrl);</span>
+<span class="nc" id="L116">        changeFXML.setController(changeControl);</span>
+
+<span class="nc" id="L118">        changeStage.setScene(new Scene(changeFXML.load()));</span>
+<span class="nc" id="L119">    }</span>
+
+    @FXML
+    public void handleMouseEvent(ActionEvent event)  throws IOException, SQLException{
+<span class="nc" id="L123">        lbMessage.setText(&quot;&quot;);</span>
+<span class="nc bnc" id="L124" title="All 2 branches missed.">        if(event.getSource() == btTenCent){</span>
+<span class="nc" id="L125">            insert += 0.10;</span>
+<span class="nc" id="L126">            insertMoney(&quot;10c&quot;);</span>
+<span class="nc" id="L127">            model.addCash(&quot;10c&quot;);</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        }else if (event.getSource() == btTwentyCent){</span>
+<span class="nc" id="L129">            insert += 0.20;</span>
+<span class="nc" id="L130">            insertMoney(&quot;20c&quot;);</span>
+<span class="nc" id="L131">            model.addCash(&quot;20c&quot;);</span>
+<span class="nc bnc" id="L132" title="All 2 branches missed.">        }else if (event.getSource() == btFiftyCent){</span>
+<span class="nc" id="L133">            insert += 0.50;</span>
+<span class="nc" id="L134">            insertMoney(&quot;50c&quot;);</span>
+<span class="nc" id="L135">            model.addCash(&quot;50c&quot;);</span>
+<span class="nc bnc" id="L136" title="All 2 branches missed.">        }else if (event.getSource() == btOneDollar){</span>
+<span class="nc" id="L137">            insert += 1.00;</span>
+<span class="nc" id="L138">            insertMoney(&quot;$1&quot;);</span>
+<span class="nc" id="L139">            model.addCash(&quot;$1&quot;);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">        }else if (event.getSource() == btTwoDollar){</span>
+<span class="nc" id="L141">            insert += 2.00;</span>
+<span class="nc" id="L142">            insertMoney(&quot;$2&quot;);</span>
+<span class="nc" id="L143">            model.addCash(&quot;$2&quot;);</span>
+<span class="nc bnc" id="L144" title="All 2 branches missed.">        }else if (event.getSource() == btFiveDollar){</span>
+<span class="nc" id="L145">            insert += 5.00;</span>
+<span class="nc" id="L146">            insertMoney(&quot;$5&quot;);</span>
+<span class="nc" id="L147">            model.addCash(&quot;$5&quot;);</span>
+<span class="nc bnc" id="L148" title="All 2 branches missed.">        }else if (event.getSource() == btTenDollar){</span>
+<span class="nc" id="L149">            insert += 10.00;</span>
+<span class="nc" id="L150">            insertMoney(&quot;$10&quot;);</span>
+<span class="nc" id="L151">            model.addCash(&quot;$10&quot;);</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">        }else if (event.getSource() == btTwentyDollar){</span>
+<span class="nc" id="L153">            insert += 20.00;</span>
+<span class="nc" id="L154">            insertMoney(&quot;$20&quot;);</span>
+<span class="nc" id="L155">            model.addCash(&quot;$20&quot;);</span>
+        }
+
+        //TODO Payment cancel, record detail to SQL and back to default page
+<span class="nc bnc" id="L159" title="All 2 branches missed.">        if(event.getSource() == btCancel){</span>
+<span class="nc" id="L160">            model.cancelTransaction(insert, 0, &quot;Cash&quot;);</span>
+<span class="nc" id="L161">            cashStage.close();</span>
+<span class="nc" id="L162">            cart.getDefault().logout();</span>
+<span class="nc" id="L163">            cart.getDefault().historyUpdate();</span>
+<span class="nc" id="L164">            timer.cancel();</span>
+<span class="nc" id="L165">            timer.purge();</span>
+<span class="nc" id="L166">            cart.refresh();</span>
+        }
+
+
+<span class="nc bnc" id="L170" title="All 2 branches missed.">        if(event.getSource() == btConfirm){</span>
+<span class="nc" id="L171">            model = cart.getEngine();</span>
+            //TODO check insert amount is greater than total or not
+            //TODO Need to check have enough coin or note to change as well
+            //TODO if not enough, ask to re-insert or cancel payment
+<span class="nc bnc" id="L175" title="All 2 branches missed.">            if(insert &lt; total){</span>
+<span class="nc" id="L176">                lbMessage.setText(&quot;Inserted money not enough!&quot;);</span>
+<span class="nc" id="L177">                lbMessage.setTextFill(Color.web(&quot;#e1414e&quot;));</span>
+<span class="nc" id="L178">                return;</span>
+            }else{
+                //TODO Payment successful update to SQL back to default page
+<span class="nc" id="L181">                checkAvailableChange();</span>
+
+<span class="nc bnc" id="L183" title="All 2 branches missed.">                if (this.enoughChange){</span>
+<span class="nc bnc" id="L184" title="All 2 branches missed.">                    if (!setChange()){</span>
+<span class="nc" id="L185">                        lbMessage.setText(&quot;Unable to Change, Try again&quot;);</span>
+<span class="nc" id="L186">                        lbMessage.setTextFill(Color.web(&quot;#eb853e&quot;));</span>
+                    }else{
+<span class="nc" id="L188">                        model.payByCash(insert, insert - total);</span>
+<span class="nc" id="L189">                        cart.getDefault().logout();</span>
+<span class="nc" id="L190">                        cart.getDefault().historyUpdate();</span>
+<span class="nc" id="L191">                        cart.getDefault().addItems(&quot;Drinks&quot;);</span>
+<span class="nc" id="L192">                        timer.cancel();</span>
+<span class="nc" id="L193">                        timer.purge();</span>
+<span class="nc" id="L194">                        cashStage.close();</span>
+<span class="nc" id="L195">                        cart.refresh();</span>
+<span class="nc" id="L196">                        changeStage.show();</span>
+                    }
+                }
+                else{
+<span class="nc" id="L200">                    lbMessage.setText(&quot;Unable to Change, Try again&quot;);</span>
+<span class="nc" id="L201">                    lbMessage.setTextFill(Color.web(&quot;#eb853e&quot;));</span>
+                }
+            }
+        }
+
+<span class="nc" id="L206">        change = insert - total;</span>
+<span class="nc" id="L207">        lbChange.setText(String.format(&quot;%.2f&quot;, change));</span>
+<span class="nc" id="L208">        lbInsert.setText(String.format(&quot;%.2f&quot;, insert));</span>
+<span class="nc" id="L209">    }</span>
+
+    //if enough, enoughChange set to True
+    //otherwise set to False
+    public void checkAvailableChange() throws SQLException{
+<span class="nc bnc" id="L214" title="All 2 branches missed.">        if (ChangesData.countAllChange() &gt;= total){</span>
+<span class="nc" id="L215">            this.enoughChange = true;</span>
+        }else{
+<span class="nc" id="L217">            this.enoughChange = false;</span>
+        }
+<span class="nc" id="L219">    }</span>
+
+    public void cleanUpInsert(){
+<span class="nc" id="L222">        change = 0.00;</span>
+<span class="nc" id="L223">        insert = 0.00;</span>
+<span class="nc" id="L224">        lbInsert.setText(&quot;0.00&quot;);</span>
+<span class="nc" id="L225">        lbChange.setText(&quot;0.00&quot;);</span>
+<span class="nc" id="L226">        this.moneyInserted = ChangesData.createHashMap();</span>
+<span class="nc" id="L227">    }</span>
+
+    public boolean setChange() throws SQLException{
+<span class="nc" id="L230">        LinkedHashMap&lt;String, String&gt; available = ChangesData.getChanges();</span>
+<span class="nc" id="L231">        LinkedHashMap&lt;String, Integer&gt; changesMap = model.getChange(this.change, available);</span>
+<span class="nc bnc" id="L232" title="All 2 branches missed.">        if (changesMap == null){</span>
+<span class="nc" id="L233">            return false;</span>
+        }
+<span class="nc bnc" id="L235" title="All 2 branches missed.">        for (String key:changesMap.keySet()){</span>
+<span class="nc" id="L236">            int amount = changesMap.get(key);</span>
+<span class="nc bnc" id="L237" title="All 9 branches missed.">            switch (key){</span>
+                case &quot;10c&quot;:
+<span class="nc" id="L239">                    this.changeControl.setTenCentText(amount);</span>
+<span class="nc" id="L240">                    break;</span>
+                case &quot;20c&quot;:
+<span class="nc" id="L242">                    this.changeControl.setTwentyCentText(amount);</span>
+<span class="nc" id="L243">                    break;</span>
+                case &quot;50c&quot;:
+<span class="nc" id="L245">                    this.changeControl.setFiftyCentText(amount);</span>
+<span class="nc" id="L246">                    break;</span>
+                case &quot;$1&quot;:
+<span class="nc" id="L248">                    this.changeControl.setOneDollarText(amount);</span>
+<span class="nc" id="L249">                    break;</span>
+                case &quot;$2&quot;:
+<span class="nc" id="L251">                    this.changeControl.setTwoDollarText(amount);</span>
+<span class="nc" id="L252">                    break;</span>
+                case &quot;$5&quot;:
+<span class="nc" id="L254">                    this.changeControl.setFiveDollarText(amount);</span>
+<span class="nc" id="L255">                    break;</span>
+                case &quot;$10&quot;:
+<span class="nc" id="L257">                    this.changeControl.setTenDollarText(amount);</span>
+<span class="nc" id="L258">                    break;</span>
+                case &quot;$20&quot;:
+<span class="nc" id="L260">                    this.changeControl.setTwentyDollarText(amount);</span>
+                    break;
+            }
+<span class="nc" id="L263">        }</span>
+<span class="nc" id="L264">        this.changeControl.setText(this.change);</span>
+<span class="nc" id="L265">        ChangesData.deductChanges(changesMap);</span>
+<span class="nc" id="L266">        return true;</span>
+    }
+
+    public void restart(){
+<span class="nc" id="L270">        timer = new Timer();</span>
+<span class="nc" id="L271">        task = new TimerTask(){</span>
+<span class="nc" id="L272">            private int deadline = 120;</span>
+            @Override
+            public void run(){
+<span class="nc" id="L275">                 Platform.runLater(() -&gt; {</span>
+<span class="nc" id="L276">                    timeSecond.setText(String.valueOf(deadline % 60));</span>
+<span class="nc" id="L277">                    timeMin.setText(String.valueOf(deadline / 60)+&quot;: &quot;);</span>
+<span class="nc" id="L278">                    deadline--;</span>
+<span class="nc bnc" id="L279" title="All 2 branches missed.">                    if (deadline &lt; 0){</span>
+                        //close the page
+                        try{
+<span class="nc" id="L282">                            model.cancelTransaction(insert, 0, &quot;Cash&quot;);</span>
+<span class="nc" id="L283">                            cashStage.close();</span>
+<span class="nc" id="L284">                            cart.getDefault().logout();</span>
+<span class="nc" id="L285">                            cart.getDefault().historyUpdate();</span>
+<span class="nc" id="L286">                            timer.cancel();</span>
+<span class="nc" id="L287">                            timer.purge();</span>
+<span class="nc" id="L288">                            cart.refresh();</span>
+<span class="nc" id="L289">                        }catch(Exception e){</span>
+<span class="nc" id="L290">                            e.printStackTrace();</span>
+<span class="nc" id="L291">                        }</span>
+                    }
+<span class="nc" id="L293">                });</span>
+<span class="nc" id="L294">            }</span>
+        };
+<span class="nc" id="L296">        model = cart.getEngine();</span>
+<span class="nc" id="L297">        this.moneyInserted = ChangesData.createHashMap();</span>
+<span class="nc" id="L298">        lbChange.setText(String.format(&quot;%.2f&quot;, 0.0));</span>
+<span class="nc" id="L299">        lbInsert.setText(String.format(&quot;%.2f&quot;, 0.0));</span>
+<span class="nc" id="L300">        insert = 0.0;</span>
+<span class="nc" id="L301">        timer.scheduleAtFixedRate(task, new Date(), 1000);</span>
+<span class="nc" id="L302">    }</span>
+
+    public void insertMoney(String money){
+<span class="nc" id="L305">        this.moneyInserted.put(money,this.moneyInserted.get(money) + 1);</span>
+<span class="nc bnc" id="L306" title="All 2 branches missed.">        for (Map.Entry&lt;String, Integer&gt; entry : this.moneyInserted.entrySet()) {</span>
+<span class="nc" id="L307">            String key = entry.getKey();</span>
+<span class="nc" id="L308">            Integer amount = entry.getValue();</span>
+<span class="nc" id="L309">        }</span>
+<span class="nc" id="L310">    }</span>
+
+    public void updateTotal(double total){
+<span class="nc" id="L313">        this.total = total;</span>
+<span class="nc" id="L314">        lbTotalCost.setText(String.valueOf(total));</span>
+<span class="nc" id="L315">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

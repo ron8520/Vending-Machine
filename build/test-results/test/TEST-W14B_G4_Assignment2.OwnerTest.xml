@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="W14B_G4_Assignment2.OwnerTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2020-11-19T11:48:22" hostname="192-168-1-108.tpgi.com.au" time="0.011">
+  <properties/>
+  <testcase name="TestOwnerModifyChange()" classname="W14B_G4_Assignment2.OwnerTest" time="0.003"/>
+  <testcase name="TestOwnerGenerateReport()" classname="W14B_G4_Assignment2.OwnerTest" time="0.003"/>
+  <testcase name="TestCustomerConstructor()" classname="W14B_G4_Assignment2.OwnerTest" time="0.0"/>
+  <testcase name="TestOwnerModifyItemDetails()" classname="W14B_G4_Assignment2.OwnerTest" time="0.0"/>
+  <testcase name="TestOwnerGenerateSummary()" classname="W14B_G4_Assignment2.OwnerTest" time="0.002"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

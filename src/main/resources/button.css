@@ -1,0 +1,23 @@
+.button-report{
+    -fx-background-color: transparent;
+}
+
+.button-report:hover{
+    -fx-background-color: #61d38b;
+}
+
+.button-report:pressed{
+    -fx-background-color: transparent;
+}
+
+.button-report1{
+    -fx-background-color: transparent;
+}
+
+.button-report1:hover{
+    -fx-background-color: #ce7c5b;
+}
+
+.button-report1:pressed{
+    -fx-background-color: transparent;
+}

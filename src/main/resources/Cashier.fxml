@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="448.0" prefWidth="362.0" style="-fx-background-color: #212440;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button fx:id="btExit" layoutX="328.0" layoutY="-4.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="37.0" prefWidth="41.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@noun_Cross_264585.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btReport" layoutX="30.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="30.0" prefWidth="90.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #587bf6;" styleClass="button-report" stylesheets="@style.css" text="Report" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <ScrollPane layoutX="32.0" layoutY="60.0" prefHeight="294.0" prefWidth="299.0" stylesheets="@table.css">
+         <content>
+            <VBox fx:id="vbCashList" prefHeight="50.0" prefWidth="294.0" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="70.0" layoutY="33.0" text="Cash" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="200.0" layoutY="33.0" text="Amount" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="btConfirm" layoutX="244.0" layoutY="395.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="30.0" prefWidth="90.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #61d38b;" styleClass="button-report" stylesheets="@button.css" text="Confirm" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+      <Label fx:id="lbMessage" alignment="CENTER" layoutX="82.0" layoutY="363.0" prefWidth="200.0" textAlignment="CENTER" textFill="#61d38b">
+         <font>
+            <Font name="Arial" size="12.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

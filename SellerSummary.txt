@@ -1,0 +1,28 @@
+code	name		total number of quantity sold
+1		Kombucha			21
+14		Pepsi			23
+2		Juice			8
+13		Coca Cola			6
+9		Mentos			8
+11		Thins			1
+18		Coke Zero			1
+100		Hampers			0
+23		Potato Chips			1
+120		Birthday Sur			0
+16		Pringles			2
+86		Haoshi			0
+100		a Chocolate			0
+97		Kinder			0
+8		Smiths			7
+15		Sprite			21
+6		Hi-Chew			6
+50		Tonic Water			132
+20		Ferrero Grand			1
+25		KitKat			0
+7		Snickers			1
+5		Kettle			2
+3		Milk Mini			2
+4		M&M			3
+19		Sour Cream			10
+10		Bounty			1
+12		Sour Patch			3

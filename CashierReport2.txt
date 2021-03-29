@@ -1,0 +1,9 @@
+transaction_id	method	paid_amount	return_change	date_time	username	status
+148	Card	1	0	2020-11-19 14:36:27.238716	ron	Completed
+2	Card	7.5	0	2020-11-18 12:40:49.920132	Charles	Completed
+295	Cash	5	0.5	2020-11-19 18:18:51.642152	Jay	Completed
+298	Card	4.5	0	2020-11-19 18:52:52.261569	Jayce	Completed
+345	Card	3.5	0	2020-11-19 21:19:17.474538	Anonymous	Cancelled
+352	Card	3	0	2020-11-19 21:30:48.854629	Paul	Completed
+409	Card	5	1	2020-11-19 23:34:56.715782	first	Cancelled
+344	Card	3	0	2020-11-19 21:12:22.923971	ada	Completed

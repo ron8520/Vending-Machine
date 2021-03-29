@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ItemData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.database</a> &gt; <span class="el_source">ItemData.java</span></div><h1>ItemData.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.database;
+
+import W14B_G4_Assignment2.model.Item;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.*;
+
+import java.util.*;
+
+<span class="nc" id="L14">public class ItemData {</span>
+
+    public static HashMap&lt;String, String&gt; getItemQuantity(String type) throws SQLException{
+<span class="fc" id="L17">        String sql = &quot;select name, quantity from items where category=?&quot;;</span>
+<span class="fc" id="L18">        String[] param={type};</span>
+<span class="fc" id="L19">        ResultSet result = DBConnection.fetch(sql, param);</span>
+
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L22">            return null;</span>
+        }
+
+<span class="fc" id="L25">        HashMap&lt;String, String&gt; items = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L26" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L27">            String tempName = result.getString(&quot;name&quot;);</span>
+<span class="fc" id="L28">            String tempCode = result.getString(&quot;quantity&quot;);</span>
+<span class="fc" id="L29">            items.put(tempName, tempCode);</span>
+<span class="fc" id="L30">        }</span>
+<span class="fc" id="L31">        return items;</span>
+    }
+
+    public static HashMap&lt;String, String&gt; getItemCode(String type) throws SQLException{
+<span class="fc" id="L35">        String sql = &quot;select name, code from items where category=? order by name&quot;;</span>
+<span class="fc" id="L36">        String[] param={type};</span>
+<span class="fc" id="L37">        ResultSet result = DBConnection.fetch(sql, param);</span>
+
+<span class="pc bpc" id="L39" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L40">            return null;</span>
+        }
+
+<span class="fc" id="L43">        HashMap&lt;String, String&gt; items = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L44" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L45">            String tempName = result.getString(&quot;name&quot;);</span>
+<span class="fc" id="L46">            String tempCode = result.getString(&quot;code&quot;);</span>
+<span class="fc" id="L47">            items.put(tempName, tempCode);</span>
+<span class="fc" id="L48">        }</span>
+<span class="fc" id="L49">        return items;</span>
+    }
+
+    public static List&lt;String&gt; getAllItemCode() throws SQLException{
+<span class="fc" id="L53">        String sql = &quot;select code from items order by code&quot;;</span>
+<span class="fc" id="L54">        String[] param={};</span>
+<span class="fc" id="L55">        ResultSet result = DBConnection.fetch(sql, param);</span>
+
+<span class="pc bpc" id="L57" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L58">            return null;</span>
+        }
+
+<span class="fc" id="L61">        List&lt;String&gt; codes = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L63">            String tempCode = result.getString(&quot;code&quot;);</span>
+<span class="fc" id="L64">            codes.add(tempCode);</span>
+<span class="fc" id="L65">        }</span>
+<span class="fc" id="L66">        return codes;</span>
+    }
+
+    public static ArrayList&lt;String&gt; getAllItems() throws SQLException{
+<span class="fc" id="L70">        String sql = &quot;select name from items&quot;;</span>
+<span class="fc" id="L71">        String[] param={};</span>
+<span class="fc" id="L72">        ResultSet result =  DBConnection.fetch(sql, param);</span>
+
+<span class="pc bpc" id="L74" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L75">            return null;</span>
+        }
+
+<span class="fc" id="L78">        ArrayList&lt;String&gt; items = new ArrayList&lt;&gt;();</span>
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L80">            String temp = result.getString(&quot;name&quot;);</span>
+<span class="fc" id="L81">            items.add(temp);</span>
+<span class="fc" id="L82">        }</span>
+<span class="fc" id="L83">        return items;</span>
+    }
+
+    public static boolean verifyItemQuantity(String item, int num) throws SQLException{
+<span class="fc" id="L87">        String sql = &quot;select name, quantity from items&quot;;</span>
+<span class="fc" id="L88">        ResultSet result =  DBConnection.fetch(sql);</span>
+
+<span class="pc bpc" id="L90" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L91">            return false;</span>
+        }
+
+<span class="fc bfc" id="L94" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L95">            String nameTemp = result.getString(&quot;name&quot;);</span>
+<span class="fc" id="L96">            int qTemp = result.getInt(&quot;quantity&quot;);</span>
+
+<span class="fc bfc" id="L98" title="All 2 branches covered.">            if (item.equals(nameTemp)){</span>
+<span class="fc bfc" id="L99" title="All 2 branches covered.">                if (num &gt; qTemp){</span>
+<span class="fc" id="L100">                    return false;</span>
+                }
+            }
+<span class="fc" id="L103">        }</span>
+<span class="fc" id="L104">        return true;</span>
+    }
+
+    public static HashMap&lt;String, Double&gt; getItemPrices() throws SQLException{
+<span class="fc" id="L108">        String sql = &quot;select name, price from items&quot;;</span>
+<span class="fc" id="L109">        ResultSet result =  DBConnection.fetch(sql);</span>
+
+<span class="pc bpc" id="L111" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L112">            return null;</span>
+        }
+
+<span class="fc" id="L115">        HashMap&lt;String, Double&gt; itemPrices = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L116" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L117">            String nameTemp = result.getString(&quot;name&quot;);</span>
+<span class="fc" id="L118">            double priceTemp = Double.valueOf(result.getString(&quot;price&quot;));</span>
+
+<span class="fc" id="L120">            itemPrices.put(nameTemp, priceTemp);</span>
+<span class="fc" id="L121">        }</span>
+
+<span class="fc" id="L123">        return itemPrices;</span>
+    }
+
+    public static HashMap&lt;String, String&gt; getItemPrices(String type) throws SQLException{
+<span class="fc" id="L127">        String sql = &quot;select name, price from items where category=?&quot;;</span>
+<span class="fc" id="L128">        String[] param = {type};</span>
+<span class="fc" id="L129">        ResultSet result =  DBConnection.fetch(sql, param);</span>
+
+<span class="pc bpc" id="L131" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L132">            return null;</span>
+        }
+
+<span class="fc" id="L135">        HashMap&lt;String, String&gt; itemPrices = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L136" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L137">            String nameTemp = result.getString(&quot;name&quot;);</span>
+<span class="fc" id="L138">            String priceTemp = result.getString(&quot;price&quot;);</span>
+
+<span class="fc" id="L140">            itemPrices.put(nameTemp, priceTemp);</span>
+<span class="fc" id="L141">        }</span>
+
+<span class="fc" id="L143">        return itemPrices;</span>
+    }
+
+    public static int countCategoryItems(String category) throws SQLException{
+<span class="fc" id="L147">        String sql = &quot;select count(name) from items where category = ?&quot;;</span>
+<span class="fc" id="L148">        String[] param={category};</span>
+<span class="fc" id="L149">        ResultSet result =  DBConnection.fetch(sql, param);</span>
+
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L152">            return 0;</span>
+        }
+
+<span class="pc bpc" id="L155" title="1 of 2 branches missed.">        if (result.next()){</span>
+<span class="fc" id="L156">            int count = result.getInt(&quot;count&quot;);</span>
+<span class="fc" id="L157">            return count;</span>
+        } else {
+<span class="nc" id="L159">            return 0;</span>
+        }
+    }
+
+    public static boolean modifyCode(String name, String newCode) throws SQLException {
+<span class="fc" id="L164">        String sql = &quot;update items set code  = ? where name = ? &quot;;</span>
+<span class="fc" id="L165">        String[] param = {newCode,name};</span>
+<span class="fc" id="L166">        DBConnection.update(sql,param);</span>
+<span class="fc" id="L167">        return true;</span>
+    }
+
+    public static boolean modifyName(String name, String newName) throws SQLException {
+<span class="fc" id="L171">        String sql = &quot;update items set name  = ? where name = ? &quot;;</span>
+<span class="fc" id="L172">        String[] param = {newName,name};</span>
+<span class="fc" id="L173">        DBConnection.update(sql,param);</span>
+<span class="fc" id="L174">        return true;</span>
+    }
+
+    public static boolean modifyCategory(String name, String newCategory) throws SQLException {
+<span class="fc" id="L178">        List&lt;String&gt; categoryList = Arrays.asList(&quot;Drinks&quot;, &quot;Chocolates&quot;, &quot;Chips&quot;, &quot;Candies&quot;);</span>
+<span class="fc bfc" id="L179" title="All 2 branches covered.">        if(!categoryList.contains(newCategory)) {</span>
+<span class="fc" id="L180">            return false; // no such category</span>
+        }
+<span class="fc" id="L182">        String sql = &quot;update items set category  = ? where name = ? &quot;;</span>
+<span class="fc" id="L183">        String[] param = {newCategory,name};</span>
+<span class="fc" id="L184">        DBConnection.update(sql,param);</span>
+
+<span class="fc" id="L186">        return true;</span>
+    }
+
+    public static boolean modifyQuantity(String name, String newQuantity) throws SQLException {
+<span class="fc" id="L190">        int newQ = Integer.valueOf(newQuantity);</span>
+
+<span class="fc bfc" id="L192" title="All 4 branches covered.">        if(newQ &gt; 15 || newQ &lt; 0) {</span>
+<span class="fc" id="L193">            return false; // reach the limit</span>
+        }
+<span class="fc" id="L195">        String sql = &quot;update items set quantity = &quot; + newQ + &quot; where name = ? &quot;;</span>
+<span class="fc" id="L196">        String[] param = {name};</span>
+<span class="fc" id="L197">        DBConnection.update(sql,param);</span>
+
+<span class="fc" id="L199">        return true;</span>
+    }
+
+    public static boolean deductQuantity(String name, int quantity) throws SQLException{
+<span class="fc" id="L203">        String sql = &quot;update items set quantity = quantity - &quot; + quantity + &quot; where name = ? &quot;;</span>
+<span class="fc" id="L204">        String[] param = {name};</span>
+<span class="fc" id="L205">        DBConnection.update(sql, param);</span>
+
+<span class="fc" id="L207">        return true;</span>
+    }
+
+    public static boolean increaseSold(String name, int quantity) throws SQLException{
+<span class="fc" id="L211">        String sql = &quot;update items set sold = sold + &quot; + quantity + &quot; where name = ? &quot;;</span>
+<span class="fc" id="L212">        String[] param = {name};</span>
+<span class="fc" id="L213">        DBConnection.update(sql, param);</span>
+
+<span class="fc" id="L215">        return true;</span>
+    }
+
+    public static boolean modifyPrice(String name, String newPrice) throws SQLException {
+<span class="fc bfc" id="L219" title="All 2 branches covered.">        if(Double.valueOf(newPrice) &lt;= 0) {</span>
+<span class="fc" id="L220">            return false;</span>
+        }
+
+<span class="fc" id="L223">        String sql = &quot;update items set price  = &quot; + Double.valueOf(newPrice) + &quot; where name = ? &quot;;</span>
+<span class="fc" id="L224">        String[] param = {name};</span>
+<span class="fc" id="L225">        DBConnection.update(sql,param);</span>
+
+<span class="fc" id="L227">        return true;</span>
+    }
+
+    public static boolean generateReport() throws SQLException, IOException {
+<span class="fc" id="L231">        String sql = &quot;select * from items&quot;;</span>
+<span class="fc" id="L232">        ResultSet result = DBConnection.fetch(sql);</span>
+
+<span class="pc bpc" id="L234" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L235">            return false;</span>
+        }
+
+<span class="fc" id="L238">        HashMap&lt;String, String[]&gt; itemList = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L239" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L240">            String nameTemp = result.getString(&quot;name&quot;);</span>
+<span class="fc" id="L241">            String categoryTemp = result.getString(&quot;category&quot;);</span>
+<span class="fc" id="L242">            String priceTemp = result.getString(&quot;price&quot;);</span>
+<span class="fc" id="L243">            String quantityTemp = String.valueOf(result.getInt(&quot;quantity&quot;));</span>
+<span class="fc" id="L244">            String soldTemp = String.valueOf(result.getInt(&quot;sold&quot;));</span>
+<span class="fc" id="L245">            String codeTemp = result.getString(&quot;code&quot;);</span>
+<span class="fc" id="L246">            String[] arr = {nameTemp, categoryTemp, priceTemp, quantityTemp, soldTemp, codeTemp};</span>
+
+<span class="fc" id="L248">            itemList.put(nameTemp, arr);</span>
+<span class="fc" id="L249">        }</span>
+
+        // generate report without sold columns(report 1)
+
+<span class="fc" id="L253">        FileWriter writer1 = new FileWriter(&quot;SellerReport1.txt&quot;);</span>
+<span class="fc" id="L254">        writer1.write(&quot;username\t\tcategory\t\tprice\tquantity\tcode\n&quot;);</span>
+<span class="fc bfc" id="L255" title="All 2 branches covered.">        for(String i : itemList.keySet()) {</span>
+<span class="fc" id="L256">            writer1.write(itemList.get(i)[0] + &quot;\t&quot; + &quot;\t&quot; + &quot;\t&quot;);</span>
+<span class="fc" id="L257">            writer1.write(itemList.get(i)[1] + &quot;\t&quot; + &quot;\t&quot; + &quot;\t&quot;);</span>
+<span class="fc" id="L258">            writer1.write(itemList.get(i)[2] + &quot;\t&quot; + &quot;\t&quot;);</span>
+<span class="fc" id="L259">            writer1.write(itemList.get(i)[3] + &quot;\t&quot; + &quot;\t&quot;);</span>
+<span class="fc" id="L260">            writer1.write(itemList.get(i)[5] + &quot;\n&quot;);</span>
+<span class="fc" id="L261">        }</span>
+<span class="fc" id="L262">        writer1.close();</span>
+
+        // generate report wit sold columns(report 2)
+<span class="fc" id="L265">        FileWriter writer2 = new FileWriter(&quot;SellerSummary.txt&quot;);</span>
+<span class="fc" id="L266">        writer2.write(&quot;code\tname\t\ttotal number of quantity sold\n&quot;);</span>
+<span class="fc bfc" id="L267" title="All 2 branches covered.">        for(String i : itemList.keySet()) {</span>
+<span class="fc" id="L268">            writer2.write(itemList.get(i)[5] + &quot;\t&quot; + &quot;\t&quot;);</span>
+<span class="fc" id="L269">            writer2.write(itemList.get(i)[0] + &quot;\t&quot; + &quot;\t&quot; + &quot;\t&quot;);</span>
+<span class="fc" id="L270">            writer2.write(itemList.get(i)[4] + &quot;\n&quot;);</span>
+<span class="fc" id="L271">        }</span>
+<span class="fc" id="L272">        writer2.close();</span>
+
+<span class="fc" id="L274">        return true;</span>
+    }
+
+    public static boolean insertItem(String name,String category, double price, int quantity, String code) throws SQLException{
+<span class="fc" id="L278">        String sql = &quot;insert into items values (?,?,&quot; + price + &quot;, &quot; + quantity + &quot;, &quot; + 0 + &quot;,?)&quot;;</span>
+<span class="fc" id="L279">        String[] param = {name, category, code};</span>
+<span class="fc" id="L280">        DBConnection.update(sql,param);</span>
+<span class="fc" id="L281">        return true;</span>
+    }
+
+    public static boolean verifyCode(String code) throws SQLException {
+<span class="fc" id="L285">        String sql = &quot;select count(*) from items where code = ?&quot;;</span>
+<span class="fc" id="L286">        String[] param = {code};</span>
+<span class="fc" id="L287">        ResultSet result = DBConnection.fetch(sql, param);</span>
+<span class="pc bpc" id="L288" title="1 of 2 branches missed.">        if (result == null) {</span>
+<span class="nc" id="L289">            return false;</span>
+<span class="pc bpc" id="L290" title="1 of 2 branches missed.">        } if (result.next()){</span>
+<span class="fc" id="L291">            int count = result.getInt(&quot;count&quot;);</span>
+
+<span class="fc bfc" id="L293" title="All 2 branches covered.">            if(count == 0){</span>
+<span class="fc" id="L294">                return true;</span>
+            }else{
+<span class="fc" id="L296">                return false;</span>
+            }
+        }else{
+<span class="nc" id="L299">            return false;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SigninController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.view</a> &gt; <span class="el_source">SigninController.java</span></div><h1>SigninController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.view;
+
+import W14B_G4_Assignment2.database.UserData;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import java.io.IOException;
+
+
+public class SigninController extends Controller{
+    private Stage signStage;
+<span class="nc" id="L17">    private boolean isSamePassword = false;</span>
+<span class="nc" id="L18">    private boolean isUnique = false;</span>
+
+    @FXML
+    private Label error_message;
+
+    @FXML
+    private JFXTextField userName;
+
+    @FXML
+    private JFXPasswordField passWord, confirmPassWord;
+
+    @FXML
+    private Button btClose, btSignUp;
+
+<span class="nc" id="L32">    public SigninController(Stage stage){</span>
+<span class="nc" id="L33">        this.signStage = stage;</span>
+<span class="nc" id="L34">    }</span>
+
+    @FXML
+    public void handleMouseEvent(ActionEvent event) throws IOException{
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if(event.getSource() == this.btClose){</span>
+<span class="nc" id="L39">            this.userName.setText(&quot;&quot;);</span>
+<span class="nc" id="L40">            this.passWord.setText(&quot;&quot;);</span>
+<span class="nc" id="L41">            this.confirmPassWord.setText(&quot;&quot;);</span>
+<span class="nc" id="L42">            this.error_message.setText(&quot;&quot;);</span>
+<span class="nc" id="L43">            this.signStage.close();</span>
+        }
+
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if(event.getSource() == this.btSignUp){</span>
+
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if (this.passWord.getText().equals(this.confirmPassWord.getText())){</span>
+<span class="nc" id="L49">                this.isSamePassword = true;</span>
+
+            }else{
+<span class="nc" id="L52">                error_message.setText(&quot;Password is the not same!&quot;);</span>
+<span class="nc" id="L53">                error_message.setTextFill(Color.web(&quot;#eb853e&quot;));</span>
+            }
+
+<span class="nc" id="L56">            String name = this.userName.getText();</span>
+<span class="nc" id="L57">            String password = this.passWord.getText();</span>
+
+            try{
+<span class="nc bnc" id="L60" title="All 2 branches missed.">                if (UserData.verifyUsername(name)){</span>
+<span class="nc" id="L61">                    this.isUnique = true;</span>
+                }else{
+<span class="nc" id="L63">                    error_message.setText(&quot;Username already exists!&quot;);</span>
+<span class="nc" id="L64">                    error_message.setTextFill(Color.web(&quot;#eb853e&quot;));</span>
+                }
+
+                //sign up sucessful, close current window
+<span class="nc bnc" id="L68" title="All 4 branches missed.">                if(this.isUnique &amp;&amp; this.isSamePassword){</span>
+<span class="nc" id="L69">                    this.userName.setText(&quot;&quot;);</span>
+<span class="nc" id="L70">                    this.passWord.setText(&quot;&quot;);</span>
+<span class="nc" id="L71">                    this.confirmPassWord.setText(&quot;&quot;);</span>
+<span class="nc" id="L72">                    this.error_message.setText(&quot;&quot;);</span>
+<span class="nc" id="L73">                    this.signStage.close();</span>
+<span class="nc" id="L74">                    UserData.insertUser(this.userName.getText(), this.passWord.getText());</span>
+                }else{
+
+                }
+<span class="nc" id="L78">            }catch(Exception e){</span>
+<span class="nc" id="L79">                e.printStackTrace();</span>
+<span class="nc" id="L80">            }</span>
+        }
+<span class="nc" id="L82">    }</span>
+
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

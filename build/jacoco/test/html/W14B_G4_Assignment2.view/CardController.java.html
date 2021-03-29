@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CardController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.view</a> &gt; <span class="el_source">CardController.java</span></div><h1>CardController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.view;
+
+import java.util.*;
+import javafx.application.Platform;
+
+import com.jfoenix.controls.JFXCheckBox;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.sql.SQLException;
+import java.io.IOException;
+
+import W14B_G4_Assignment2.model.*;
+import W14B_G4_Assignment2.database.*;
+
+public class CardController extends Controller{
+
+    private Stage cardStage;
+    private Timer timer;
+    private TimerTask task;
+    private String username;
+    private MachineEngine model;
+    private ShoppingCartController cart;
+    private double total;
+
+    @FXML
+    private Label timeSecond, timeMin, lbMessage;
+
+    @FXML
+    private Button btCancel, btConfirm;
+
+    @FXML
+    private JFXCheckBox saveCheck;
+
+    @FXML
+    private JFXTextField cardName;
+
+    @FXML
+    private JFXPasswordField cardNumber;
+
+<span class="nc" id="L48">    private String error = &quot;Incorrect Card Number / Name&quot;;</span>
+
+<span class="nc" id="L50">    public CardController(ShoppingCartController cart){</span>
+<span class="nc" id="L51">        this.cardStage = cart.getPaymentStage();</span>
+<span class="nc" id="L52">        this.username = cart.getUsername();</span>
+<span class="nc" id="L53">        this.cart = cart;</span>
+<span class="nc" id="L54">        this.model = cart.getEngine();</span>
+<span class="nc" id="L55">    }</span>
+
+    //TODO check the User input is valid or not
+    public boolean identifyCardDetail() throws SQLException{
+<span class="nc" id="L59">        String cardname = this.cardName.getText();</span>
+<span class="nc" id="L60">        String cardnum = this.cardNumber.getText();</span>
+
+<span class="nc" id="L62">        return model.verifyCard(cardname, cardnum);</span>
+    }
+
+    @FXML
+    public void handleMouseEvent(ActionEvent event) throws IOException, SQLException{
+        //TODO
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        if(event.getSource() == btConfirm){</span>
+<span class="nc bnc" id="L69" title="All 2 branches missed.">            if(identifyCardDetail()){</span>
+<span class="nc" id="L70">                model.payByCreditCard(model.getUser().getName(), this.cardNumber.getText(), total);</span>
+
+<span class="nc bnc" id="L72" title="All 2 branches missed.">                if (saveCheck.isSelected()){</span>
+<span class="nc" id="L73">                    model.addCard(model.getUser().getName(), this.cardName.getText());</span>
+                }
+
+<span class="nc" id="L76">                cart.getDefault().logout();</span>
+<span class="nc" id="L77">                cart.getDefault().historyUpdate();</span>
+<span class="nc" id="L78">                cart.getDefault().addItems(&quot;Drinks&quot;);</span>
+<span class="nc" id="L79">                cardStage.close();</span>
+<span class="nc" id="L80">                timer.cancel();</span>
+<span class="nc" id="L81">                timer.purge();</span>
+<span class="nc" id="L82">                cart.refresh();</span>
+            }else{
+<span class="nc" id="L84">                lbMessage.setText(error);</span>
+<span class="nc" id="L85">                lbMessage.setTextFill(Color.web(&quot;#eb853e&quot;));</span>
+            }
+        }
+
+        //TODO Back to default page and log out
+<span class="nc bnc" id="L90" title="All 2 branches missed.">        if(event.getSource() == btCancel){</span>
+<span class="nc" id="L91">            model.cancelTransaction(total, 0, &quot;Card&quot;);</span>
+<span class="nc" id="L92">            cart.getDefault().logout();</span>
+<span class="nc" id="L93">            cart.getDefault().historyUpdate();</span>
+<span class="nc" id="L94">            this.cardStage.close();</span>
+<span class="nc" id="L95">            timer.cancel();</span>
+<span class="nc" id="L96">            timer.purge();</span>
+<span class="nc" id="L97">            cart.refresh();</span>
+        }
+<span class="nc" id="L99">    }</span>
+
+    public void restart() throws SQLException{
+<span class="nc" id="L102">        timer = new Timer();</span>
+<span class="nc" id="L103">        task = new TimerTask(){</span>
+<span class="nc" id="L104">            private int deadline = 120;</span>
+            @Override
+            public void run(){
+<span class="nc" id="L107">                 Platform.runLater(() -&gt; {</span>
+<span class="nc" id="L108">                    timeSecond.setText(String.valueOf(deadline % 60));</span>
+<span class="nc" id="L109">                    timeMin.setText(String.valueOf(deadline / 60)+&quot;: &quot;);</span>
+<span class="nc" id="L110">                    deadline--;</span>
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                    if (deadline &lt; 0){</span>
+                        //close the page
+                        try{
+<span class="nc" id="L114">                            model.cancelTransaction(total, 0, &quot;Card&quot;);</span>
+<span class="nc" id="L115">                            cardStage.close();</span>
+<span class="nc" id="L116">                            cart.getDefault().logout();</span>
+<span class="nc" id="L117">                            cart.getDefault().historyUpdate();</span>
+<span class="nc" id="L118">                            timer.cancel();</span>
+<span class="nc" id="L119">                            timer.purge();</span>
+<span class="nc" id="L120">                            cart.refresh();</span>
+<span class="nc" id="L121">                        }catch(Exception e){</span>
+<span class="nc" id="L122">                            e.printStackTrace();</span>
+<span class="nc" id="L123">                        }</span>
+                    }
+<span class="nc" id="L125">                });</span>
+<span class="nc" id="L126">            }</span>
+        };
+<span class="nc" id="L128">        model = cart.getEngine();</span>
+<span class="nc" id="L129">        cardName.setText(&quot;&quot;);</span>
+<span class="nc" id="L130">        cardNumber.setText(&quot;&quot;);</span>
+<span class="nc" id="L131">        lbMessage.setText(&quot;&quot;);</span>
+<span class="nc" id="L132">        ArrayList&lt;String&gt; cardInfo = CardData.getUserSavedDetail(this.model.getUser().getName());</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">        if (cardInfo != null){</span>
+<span class="nc" id="L134">            cardName.setText(cardInfo.get(0));</span>
+<span class="nc" id="L135">            cardNumber.setText(cardInfo.get(1));</span>
+        }
+
+<span class="nc" id="L138">        timer.scheduleAtFixedRate(task, new Date(), 1000);</span>
+<span class="nc" id="L139">    }</span>
+
+    public void updateTotal(double total){
+<span class="nc" id="L142">        this.total = total;</span>
+<span class="nc" id="L143">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

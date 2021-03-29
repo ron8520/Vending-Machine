@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SellerItemController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.view</a> &gt; <span class="el_source">SellerItemController.java</span></div><h1>SellerItemController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.view;
+
+import W14B_G4_Assignment2.database.ItemData;
+import com.jfoenix.controls.JFXTextField;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.scene.paint.Color;
+
+import java.sql.SQLException;
+
+public class SellerItemController extends Controller{
+
+    @FXML
+    private JFXTextField lbItemCode, lbItemName, lbItemPrice, lbItemQuantity;
+
+    @FXML
+    private Label lbMessage;
+
+<span class="nc" id="L20">    public SellerItemController(){</span>
+<span class="nc" id="L21">        lbItemCode = new JFXTextField();</span>
+<span class="nc" id="L22">        lbItemName = new JFXTextField();</span>
+<span class="nc" id="L23">        lbItemPrice = new JFXTextField();</span>
+<span class="nc" id="L24">        lbItemQuantity = new JFXTextField();</span>
+<span class="nc" id="L25">        lbMessage = new Label();</span>
+<span class="nc" id="L26">    }</span>
+
+    @FXML
+    public void updateItem(ActionEvent event) throws SQLException {
+        //TODO CHECK VALID INPUT FOR EACH FIELD, IF VALID UPDATE TO SQL DATABASE
+<span class="nc bnc" id="L31" title="All 2 branches missed.">        if(event.getSource() == lbItemCode){</span>
+<span class="nc" id="L32">            String oldCode = lbItemCode.getPromptText();</span>
+<span class="nc" id="L33">            String newCode = lbItemCode.getText();</span>
+<span class="nc" id="L34">            String name = lbItemName.getPromptText();</span>
+
+<span class="nc bnc" id="L36" title="All 4 branches missed.">            if (!oldCode.matches(&quot;\\d*&quot;) || !newCode.matches(&quot;\\d*&quot;)) {</span>
+<span class="nc" id="L37">                lbItemCode.setPromptText(oldCode.replaceAll(&quot;[^\\d]&quot;, &quot;&quot;));</span>
+<span class="nc" id="L38">                lbItemCode.setText(newCode.replaceAll(&quot;[^\\d]&quot;, &quot;&quot;));</span>
+<span class="nc" id="L39">                oldCode = lbItemCode.getPromptText();</span>
+<span class="nc" id="L40">                newCode = lbItemCode.getText();</span>
+            }
+
+<span class="nc bnc" id="L43" title="All 4 branches missed.">            if (newCode == null || newCode.length()&lt;1){</span>
+<span class="nc" id="L44">                return;</span>
+            }
+
+<span class="nc" id="L47">            boolean valid = ItemData.verifyCode(newCode);</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">            if(valid) {</span>
+<span class="nc" id="L49">                ItemData.modifyCode(name,newCode);</span>
+<span class="nc" id="L50">                lbMessage.setText(&quot;done&quot;);</span>
+<span class="nc" id="L51">                lbMessage.setTextFill(Color.web(&quot;#61d38b&quot;));</span>
+<span class="nc" id="L52">                lbItemCode.setPromptText(lbItemCode.getText());</span>
+            } else {
+<span class="nc" id="L54">                ItemData.modifyCode(name,oldCode);</span>
+<span class="nc" id="L55">                lbMessage.setText(&quot;Duplicate code&quot;); // Notify the seller the code has already existed.</span>
+<span class="nc" id="L56">                lbMessage.setTextFill(Color.web(&quot;#e35d68&quot;));</span>
+<span class="nc" id="L57">                return;</span>
+            }
+        }
+
+<span class="nc bnc" id="L61" title="All 2 branches missed.">        if(event.getSource() == lbItemName){</span>
+<span class="nc" id="L62">            String newName = lbItemName.getText();</span>
+<span class="nc" id="L63">            String oldName = lbItemName.getPromptText();</span>
+<span class="nc bnc" id="L64" title="All 2 branches missed.">            if(!ItemData.modifyName(oldName, newName)) {</span>
+<span class="nc" id="L65">                lbMessage.setText(&quot;Invalid name&quot;);</span>
+<span class="nc" id="L66">                lbMessage.setTextFill(Color.web(&quot;#e35d68&quot;));</span>
+<span class="nc" id="L67">                return;</span>
+            } else {
+<span class="nc" id="L69">                lbMessage.setText(&quot;done&quot;);</span>
+<span class="nc" id="L70">                lbMessage.setTextFill(Color.web(&quot;#61d38b&quot;));</span>
+<span class="nc" id="L71">                lbItemName.setPromptText(lbItemName.getText());</span>
+            }
+        }
+
+<span class="nc bnc" id="L75" title="All 2 branches missed.">        if(event.getSource() == lbItemPrice){</span>
+<span class="nc" id="L76">            String price = lbItemPrice.getText();</span>
+<span class="nc" id="L77">            String name = lbItemName.getPromptText();</span>
+
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (!price.matches(&quot;\\d*&quot;)) {</span>
+<span class="nc" id="L80">                lbItemPrice.setText(price.replaceAll(&quot;[^\\d.]&quot;, &quot;&quot;));</span>
+<span class="nc" id="L81">                price = lbItemPrice.getText();</span>
+            }
+
+<span class="nc bnc" id="L84" title="All 4 branches missed.">            if (price == null || price.length()&lt;1){</span>
+<span class="nc" id="L85">                return;</span>
+            }
+
+<span class="nc" id="L88">            Double priceNumber = ((double) ((int) (Double.parseDouble(price) * 10))) /10;</span>
+<span class="nc" id="L89">            lbItemPrice.setText(priceNumber.toString());</span>
+<span class="nc" id="L90">            price = lbItemPrice.getText();</span>
+
+<span class="nc bnc" id="L92" title="All 4 branches missed.">            if (price == null || price.length()&lt;1){</span>
+<span class="nc" id="L93">                return;</span>
+            }
+
+<span class="nc bnc" id="L96" title="All 2 branches missed.">            if(!ItemData.modifyPrice(name, price)) {</span>
+<span class="nc" id="L97">                lbMessage.setText(&quot;Invalid price!&quot;); // need change into a promptext to notify the seller!</span>
+<span class="nc" id="L98">                lbMessage.setTextFill(Color.web(&quot;#e35d68&quot;));</span>
+<span class="nc" id="L99">                return;</span>
+            } else {
+<span class="nc" id="L101">                lbMessage.setText(&quot;done&quot;);</span>
+<span class="nc" id="L102">                lbMessage.setTextFill(Color.web(&quot;#61d38b&quot;));</span>
+<span class="nc" id="L103">                lbItemPrice.setPromptText(lbItemPrice.getText());</span>
+            }
+        }
+
+<span class="nc bnc" id="L107" title="All 2 branches missed.">        if(event.getSource() == lbItemQuantity){</span>
+<span class="nc" id="L108">            String quantity = lbItemQuantity.getText();</span>
+<span class="nc" id="L109">            String name = lbItemName.getPromptText();</span>
+
+<span class="nc bnc" id="L111" title="All 2 branches missed.">            if (!quantity.matches(&quot;\\d*&quot;)) {</span>
+<span class="nc" id="L112">                lbItemQuantity.setText(quantity.replaceAll(&quot;[^\\d]&quot;, &quot;&quot;));</span>
+<span class="nc" id="L113">                quantity = lbItemQuantity.getText();</span>
+            }
+<span class="nc bnc" id="L115" title="All 4 branches missed.">            if (quantity == null || quantity.length()&lt;1){</span>
+<span class="nc" id="L116">                return;</span>
+            }
+<span class="nc bnc" id="L118" title="All 2 branches missed.">            if(!ItemData.modifyQuantity(name, quantity)) {</span>
+<span class="nc" id="L119">                lbMessage.setText(&quot;Invalid quantity!&quot;); // need change into a promp text to notify the seller!</span>
+<span class="nc" id="L120">                lbMessage.setTextFill(Color.web(&quot;#e35d68&quot;));</span>
+<span class="nc" id="L121">                return;</span>
+            } else {
+<span class="nc" id="L123">                lbMessage.setText(&quot;done&quot;);</span>
+<span class="nc" id="L124">                lbMessage.setTextFill(Color.web(&quot;#61d38b&quot;));</span>
+<span class="nc" id="L125">                lbItemQuantity.setPromptText(lbItemQuantity.getText());</span>
+            }
+        }
+
+<span class="nc" id="L129">    }</span>
+
+    public void setPromptText(String code, String name, String price, String quantity){
+<span class="nc" id="L132">        lbItemCode.setPromptText(code);</span>
+<span class="nc" id="L133">        lbItemName.setPromptText(name);</span>
+<span class="nc" id="L134">        lbItemPrice.setPromptText(price);</span>
+<span class="nc" id="L135">        lbItemQuantity.setPromptText(quantity);</span>
+<span class="nc" id="L136">    }</span>
+
+    public void setMessage(int quantity){
+<span class="nc bnc" id="L139" title="All 2 branches missed.">        if (quantity &lt;= 0){</span>
+<span class="nc" id="L140">            lbMessage.setText(&quot;Out of Stock&quot;);</span>
+<span class="nc" id="L141">            lbMessage.setTextFill(Color.web(&quot;#e35d68&quot;));</span>
+        }else{
+<span class="nc" id="L143">            lbMessage.setText(&quot;Available&quot;);</span>
+<span class="nc" id="L144">            lbMessage.setTextFill(Color.web(&quot;#61d38b&quot;));</span>
+        }
+<span class="nc" id="L146">    }</span>
+
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

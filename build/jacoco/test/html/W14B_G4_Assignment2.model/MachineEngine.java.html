@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MachineEngine.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.model</a> &gt; <span class="el_source">MachineEngine.java</span></div><h1>MachineEngine.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.model;
+
+import java.sql.ResultSet;
+import java.util.*;
+import W14B_G4_Assignment2.database.*;
+
+import java.sql.SQLException;
+
+public class MachineEngine{
+    private User user;
+    private ArrayList&lt;String&gt; currentPaidCashes;
+
+<span class="fc" id="L13">    public MachineEngine(User user){</span>
+<span class="fc" id="L14">        this.user = user;</span>
+<span class="fc" id="L15">        this.currentPaidCashes = new ArrayList&lt;String&gt;();</span>
+<span class="fc" id="L16">    }</span>
+
+    public void addCash(String cash){
+<span class="fc" id="L19">        this.currentPaidCashes.add(cash);</span>
+<span class="fc" id="L20">    }</span>
+
+    public void setUser(User user){
+<span class="fc" id="L23">        this.user = user;</span>
+<span class="fc" id="L24">    }</span>
+
+    public User getUser(){
+<span class="fc" id="L27">        return this.user;</span>
+    }
+
+    public boolean containItem(String item){
+<span class="nc" id="L31">        return this.user.getCart().getItems().containsKey(item);</span>
+    }
+
+    public boolean addItem(String item, int num) throws SQLException{
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        if (!ItemData.getAllItems().contains(item)){</span>
+<span class="fc" id="L37">            return false;</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        }else if (!ItemData.verifyItemQuantity(item, this.user.getCart().getItemNum(item) + num)){</span>
+<span class="fc" id="L39">            return false;</span>
+        }
+
+<span class="fc" id="L42">        this.user.getCart().addItem(item, num);</span>
+<span class="fc" id="L43">        return true;</span>
+    }
+
+    public boolean removeItem(String item){
+<span class="fc" id="L47">        this.user.getCart().removeItem(item);</span>
+<span class="fc" id="L48">        return true;</span>
+    }
+
+    public double calculateTotalPrices() throws SQLException{
+<span class="fc" id="L52">        double total = 0.0;</span>
+
+<span class="fc" id="L54">        HashMap&lt;String, Double&gt; prices = ItemData.getItemPrices();</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        for (String i:this.user.getCart().getItems().keySet()){</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">            for (String j:prices.keySet()){</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">                if (i.equals(j)){</span>
+<span class="fc" id="L58">                    total += prices.get(j) * this.user.getCart().getItemNum(i);</span>
+<span class="fc" id="L59">                    break;</span>
+                }
+<span class="fc" id="L61">            }</span>
+<span class="fc" id="L62">        }</span>
+
+<span class="fc" id="L64">        return total;</span>
+    }
+
+    public double calculatePaidCashes(){
+<span class="fc" id="L68">        double current = 0.0;</span>
+<span class="fc bfc" id="L69" title="All 2 branches covered.">        for (int i = 0;i &lt; this.currentPaidCashes.size();i++){</span>
+<span class="fc bfc" id="L70" title="All 2 branches covered.">            if (this.currentPaidCashes.get(i).charAt(0) == '$'){</span>
+<span class="fc" id="L71">                current += Double.valueOf(this.currentPaidCashes.get(i).substring(1));</span>
+            }else{
+<span class="fc" id="L73">                current += Double.valueOf(this.currentPaidCashes.get(i).substring(0,2))/100;</span>
+            }
+        }
+<span class="fc" id="L76">        return current;</span>
+    }
+
+    // Available cashes are $1, $2, $5, $10, $20, 10c, 20c, 50c
+    public boolean moneyEnough() throws SQLException{
+<span class="fc" id="L81">        double total  = calculateTotalPrices();</span>
+
+<span class="fc" id="L83">        double current = calculatePaidCashes();</span>
+
+<span class="fc bfc" id="L85" title="All 2 branches covered.">        if (current &gt;= total){</span>
+<span class="fc" id="L86">            return true;</span>
+        }
+
+<span class="fc" id="L89">        return false;</span>
+    }
+
+    public boolean payByCash(double current, double change) throws SQLException{
+
+<span class="fc" id="L94">        int txnID = TransactionData.getTransactionNum() + 1;</span>
+<span class="fc" id="L95">        String newTransactionQuery = &quot;insert into transactions values (&quot; + txnID + &quot;,&quot; + &quot;'Cash',&quot; + current + &quot;,&quot; + change + &quot;,&quot; + &quot;current_timestamp,&quot; + &quot;?,&quot; + &quot;'Completed')&quot;;</span>
+<span class="fc" id="L96">        String[] param1 = {this.user.getName()};</span>
+<span class="fc" id="L97">        TransactionData.makeTransaction(newTransactionQuery, param1);</span>
+
+<span class="fc bfc" id="L99" title="All 2 branches covered.">        for (String item:this.user.getCart().getItems().keySet()){</span>
+<span class="fc" id="L100">            String newTransactionItemQuery = &quot;insert into transaction_sold_items values (&quot; + txnID + &quot;,&quot; + &quot;?,&quot; + this.user.getCart().getItemNum(item) + &quot;)&quot;;</span>
+<span class="fc" id="L101">            String[] param2 = {item};</span>
+<span class="fc" id="L102">            TransactionData.makeTransaction(newTransactionItemQuery, param2);</span>
+
+<span class="fc" id="L104">            ItemData.deductQuantity(item, this.user.getCart().getItemNum(item));</span>
+<span class="fc" id="L105">            ItemData.increaseSold(item, this.user.getCart().getItemNum(item));</span>
+<span class="fc" id="L106">        }</span>
+
+<span class="fc" id="L108">        ChangesData.addChanges(this.currentPaidCashes);</span>
+<span class="fc" id="L109">        this.currentPaidCashes.clear();</span>
+<span class="fc" id="L110">        return true;</span>
+    }
+
+    public boolean verifyCard(String name, String number) throws SQLException{
+<span class="fc" id="L114">        String sql = &quot;select * from cards where name = ? and number = ?&quot;;</span>
+<span class="fc" id="L115">        String[] param = {name, number};</span>
+<span class="fc" id="L116">        ResultSet result = DBConnection.fetch(sql, param);</span>
+<span class="fc" id="L117">        int count = 0;</span>
+<span class="fc bfc" id="L118" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L119">            count += 1;</span>
+        }
+<span class="fc bfc" id="L121" title="All 2 branches covered.">        if (count == 0){</span>
+<span class="fc" id="L122">            return false;</span>
+        }
+<span class="fc" id="L124">        return true;</span>
+    }
+
+    public boolean payByCreditCard(String name, String number, double current) throws SQLException{
+<span class="fc" id="L128">        int txnID = TransactionData.getTransactionNum() + 1;</span>
+<span class="fc" id="L129">        String newTransactionQuery = &quot;insert into transactions values (&quot; + txnID + &quot;,&quot; + &quot;'Card',&quot; + current + &quot;,&quot; + &quot;0&quot; + &quot;,&quot; + &quot;current_timestamp,&quot; + &quot;?, &quot; + &quot;'Completed')&quot;;</span>
+<span class="fc" id="L130">        String[] param1 = {this.user.getName()};</span>
+<span class="fc" id="L131">        TransactionData.makeTransaction(newTransactionQuery, param1);</span>
+
+<span class="fc bfc" id="L133" title="All 2 branches covered.">        for (String item:this.user.getCart().getItems().keySet()){</span>
+<span class="fc" id="L134">            String newTransactionItemQuery = &quot;insert into transaction_sold_items values (&quot; + txnID + &quot;,&quot; + &quot;?,&quot; + this.user.getCart().getItemNum(item) + &quot;)&quot;;</span>
+<span class="fc" id="L135">            String[] param2 = {item};</span>
+<span class="fc" id="L136">            TransactionData.makeTransaction(newTransactionItemQuery, param2);</span>
+<span class="fc" id="L137">            ItemData.deductQuantity(item, this.user.getCart().getItemNum(item));</span>
+<span class="fc" id="L138">            ItemData.increaseSold(item, this.user.getCart().getItemNum(item));</span>
+<span class="fc" id="L139">        }</span>
+
+<span class="fc" id="L141">        return true;</span>
+
+    }
+
+    public LinkedHashMap&lt;String, Integer&gt; getChange(double money, LinkedHashMap&lt;String, String&gt; available){
+<span class="fc" id="L146">        LinkedHashMap change = ChangesData.createHashMap();</span>
+<span class="fc bfc" id="L147" title="All 2 branches covered.">        for (String key : available.keySet()) {</span>
+<span class="fc" id="L148">            int amount = Integer.parseInt(available.get(key));</span>
+<span class="fc" id="L149">            double value = ChangesData.getValue(key);</span>
+<span class="fc" id="L150">            int used = 0;</span>
+<span class="pc bpc" id="L151" title="1 of 2 branches missed.">            while(amount &gt; 0){</span>
+<span class="fc bfc" id="L152" title="All 2 branches covered.">                if(money &lt; value){</span>
+<span class="fc" id="L153">                    break;</span>
+                }
+<span class="fc" id="L155">                money -= value;</span>
+<span class="fc" id="L156">                amount -= 1;</span>
+<span class="fc" id="L157">                used += 1;</span>
+            }
+<span class="fc" id="L159">            change.put(key,used);</span>
+<span class="fc" id="L160">        }</span>
+
+<span class="pc bpc" id="L162" title="1 of 2 branches missed.">        if(money &gt; 0){</span>
+<span class="nc" id="L163">            return null;</span>
+        }
+<span class="fc" id="L165">        return change;</span>
+    }
+
+    public void addCard(String username, String cardname) throws SQLException{
+<span class="fc" id="L169">        String sql = &quot;select * from user_cards where username=?&quot;;</span>
+<span class="fc" id="L170">        String[] params={username};</span>
+<span class="fc" id="L171">        ResultSet result = DBConnection.fetch(sql, params);</span>
+<span class="fc" id="L172">        int count = 0;</span>
+<span class="fc bfc" id="L173" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L174">            count += 1;</span>
+        }
+<span class="fc bfc" id="L176" title="All 2 branches covered.">        if (count == 0){</span>
+<span class="fc" id="L177">            sql = &quot;insert into user_cards values (?,?)&quot;;</span>
+<span class="fc" id="L178">            String[] paramsTemp = {username, cardname};</span>
+<span class="fc" id="L179">            DBConnection.update(sql, paramsTemp);</span>
+<span class="fc" id="L180">        }else{</span>
+<span class="fc" id="L181">            sql = &quot;update user_cards set cardname = ? where username=?&quot;;</span>
+<span class="fc" id="L182">            String[] paramsTemp = {cardname, username};</span>
+<span class="fc" id="L183">            DBConnection.update(sql, paramsTemp);</span>
+        }
+<span class="fc" id="L185">    }</span>
+
+    public void cancelTransaction(double current, double change, String type) throws SQLException{
+<span class="fc" id="L188">        int txnID = TransactionData.getTransactionNum() + 1;</span>
+<span class="fc" id="L189">        String newTransactionQuery = &quot;insert into transactions values (&quot; + txnID + &quot;,&quot; + &quot;'&quot; + type + &quot;'&quot; + &quot;,&quot; + current + &quot;,&quot; + change + &quot;,&quot; + &quot;current_timestamp,&quot; + &quot;?,&quot; + &quot;'Cancelled')&quot;;</span>
+<span class="fc" id="L190">        String[] param1 = {this.user.getName()};</span>
+<span class="fc" id="L191">        TransactionData.makeTransaction(newTransactionQuery, param1);</span>
+<span class="fc" id="L192">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

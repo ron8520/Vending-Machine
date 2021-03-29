@@ -1,0 +1,110 @@
+.button-login
+{
+   -fx-background-color: #e1414e;
+}
+
+.button-login:hover{
+    -fx-background-color: #e35d68;
+}
+
+.button-login:pressed{
+    -fx-background-color: #e1414e;
+}
+
+.button-signin{
+    -fx-background-color: #6836f5;
+}
+
+.button-signin:hover{
+    -fx-background-color: #5a23f4
+}
+
+.button-signin:pressed{
+    -fx-background-color: #6836f5;
+}
+
+.button-shopping{
+    -fx-background-color: #2e3257;
+}
+
+.button-shopping:hover{
+    -fx-background-color: #587bf6;
+}
+
+.button-shopping:pressed{
+    -fx-background-color: #2e3257;
+}
+
+.button-setting{
+    -fx-background-color: #2e3257;
+}
+
+.button-setting:hover{
+    -fx-background-color: #6836f5;
+}
+
+.button-setting:pressed{
+    -fx-background-color: #2e3257;
+}
+
+.label-username{
+    -fx-text-fill: #ffffff;
+    -fx-background-color: transparent;
+}
+
+.label-username:hover{
+   -fx-background-color: #6836f5;
+}
+
+.label-username:pressed{
+   -fx-background-color: transparent
+}
+
+
+.button-user{
+    -fx-background-color: #2e3257;
+}
+
+.button-user:hover{
+    -fx-background-color: #5cbdf9;
+}
+
+.button-user:pressed{
+    -fx-background-color: #2e3257;
+}
+
+.jfx-hamburger StackPane{
+    -fx-background-color: white;
+}
+
+.button-checkout{
+    -fx-background-color: #e1414e;
+    -fx-border-color: #e1414e;
+    -fx-border-radius: 10
+}
+
+.button-checkout:hover{
+    -fx-background-color: #212440;
+    -fx-background-radius: 10
+}
+
+.button-checkout:pressed{
+    -fx-background-color: #e1414e;
+}
+
+.button-report{
+    -fx-background-color: transparent;
+}
+
+.button-report:hover{
+    -fx-background-color: #587bf6;
+}
+
+.button-report:pressed{
+    -fx-background-color: transparent;
+}
+
+
+.root{
+    -fx-font-family: "Arial";
+}

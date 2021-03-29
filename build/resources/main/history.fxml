@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox fx:id="vbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="390.0" prefWidth="220.0" style="-fx-background-color: #2e3257;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="84.0" prefWidth="194.0">
+         <children>
+            <ImageView fitHeight="28.0" fitWidth="30.0" layoutX="14.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@noun_Time_1911454.png" />
+               </image>
+            </ImageView>
+            <Text fill="WHITE" layoutX="47.0" layoutY="51.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Recents">
+               <font>
+                  <Font name="Arial" size="25.0" />
+               </font>
+            </Text>
+         </children>
+      </AnchorPane>
+      <HBox prefHeight="54.0" prefWidth="230.0">
+         <children>
+            <VBox prefHeight="60.0" prefWidth="60.0">
+               <children>
+                  <ImageView fx:id="firstImg" fitHeight="33.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="18.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="46.0" prefWidth="130.0">
+               <children>
+                  <Label fx:id="first" prefHeight="17.0" prefWidth="104.0" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="17.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="45.0" prefWidth="42.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="54.0" prefWidth="230.0">
+         <children>
+            <VBox prefHeight="60.0" prefWidth="60.0">
+               <children>
+                  <ImageView fx:id="secondImg" fitHeight="33.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="18.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="46.0" prefWidth="130.0">
+               <children>
+                  <Label fx:id="second" prefHeight="17.0" prefWidth="104.0" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="17.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="45.0" prefWidth="42.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="54.0" prefWidth="230.0">
+         <children>
+            <VBox prefHeight="60.0" prefWidth="60.0">
+               <children>
+                  <ImageView fx:id="thirdImg" fitHeight="33.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="18.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="46.0" prefWidth="130.0">
+               <children>
+                  <Label fx:id="third" prefHeight="17.0" prefWidth="104.0" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="17.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="45.0" prefWidth="42.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="54.0" prefWidth="230.0">
+         <children>
+            <VBox prefHeight="60.0" prefWidth="60.0">
+               <children>
+                  <ImageView fx:id="fourthImg" fitHeight="33.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="18.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="46.0" prefWidth="130.0">
+               <children>
+                  <Label fx:id="fourth" prefHeight="17.0" prefWidth="104.0" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="17.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="45.0" prefWidth="42.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox prefHeight="54.0" prefWidth="230.0">
+         <children>
+            <VBox prefHeight="60.0" prefWidth="60.0">
+               <children>
+                  <ImageView fx:id="fifthImg" fitHeight="33.0" fitWidth="78.0" pickOnBounds="true" preserveRatio="true">
+                     <VBox.margin>
+                        <Insets left="18.0" top="5.0" />
+                     </VBox.margin>
+                  </ImageView>
+               </children>
+            </VBox>
+            <VBox prefHeight="46.0" prefWidth="130.0">
+               <children>
+                  <Label fx:id="fifth" prefHeight="17.0" prefWidth="104.0" textFill="WHITE">
+                     <font>
+                        <Font name="Arial" size="15.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="10.0" top="17.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="45.0" prefWidth="42.0">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin>
+            </VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="53.0" prefWidth="504.0" style="-fx-background-color: #2e3257;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="65.0" prefWidth="97.0">
+         <children>
+            <JFXTextField fx:id="lbItemCode" alignment="CENTER" focusColor="#5cbdf9" labelFloat="true" layoutX="24.0" layoutY="15.0" onAction="#updateItem" prefWidth="50.0" promptText="1" style="-fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="65.0" prefWidth="97.0">
+         <children>
+            <JFXTextField fx:id="lbItemName" alignment="CENTER" focusColor="#5cbdf9" labelFloat="true" layoutX="10.0" layoutY="15.0" onAction="#updateItem" prefHeight="23.0" prefWidth="75.0" promptText="Mineral Water" style="-fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="65.0" prefWidth="97.0">
+         <children>
+            <JFXTextField fx:id="lbItemPrice" alignment="CENTER" focusColor="#5cbdf9" labelFloat="true" layoutX="23.0" layoutY="15.0" onAction="#updateItem" prefWidth="50.0" promptText="\$3.5" style="-fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="65.0" prefWidth="97.0">
+         <children>
+            <JFXTextField fx:id="lbItemQuantity" alignment="CENTER" focusColor="#5cbdf9" labelFloat="true" layoutX="24.0" layoutY="15.0" onAction="#updateItem" prefWidth="50.0" promptText="7" style="-fx-text-fill: white; -fx-prompt-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="12.0" />
+               </font>
+            </JFXTextField>
+         </children>
+      </AnchorPane>
+      <VBox prefHeight="65.0" prefWidth="121.0">
+         <children>
+            <Label fx:id="lbMessage" alignment="CENTER" prefWidth="300.0" textFill="#61d38b">
+               <font>
+                  <Font name="Arial" size="14.0" />
+               </font>
+               <VBox.margin>
+                  <Insets left="5.0" top="20.0" />
+               </VBox.margin>
+            </Label>
+         </children>
+      </VBox>
+   </children>
+</HBox>

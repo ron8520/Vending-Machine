@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1250.0" style="-fx-background-color: #212440;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="873.0" style="-fx-background-color: #212440;">
+         <children>
+            <Label layoutX="50.0" layoutY="439.0" text="Item Code" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="500.0" text="Item Name" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="373.0" text="Category" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="555.0" text="Price" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="50.0" layoutY="617.0" text="Quantity" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Label>
+            <AnchorPane fx:id="chip" layoutX="180.0" layoutY="200.0" onMouseClicked="#dropChip" prefHeight="119.0" prefWidth="119.0" style="-fx-background-color: #5ca578; -fx-background-radius: 20;">
+               <children>
+                  <ImageView fitHeight="46.0" fitWidth="40.0" layoutX="39.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@noun_snack_1134821.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="39.0" layoutY="90.0" text="Chips" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="candy" layoutX="34.0" layoutY="200.0" onMouseClicked="#dropCandy" prefHeight="119.0" prefWidth="119.0" style="-fx-background-color: #e35d68; -fx-background-radius: 20;">
+               <children>
+                  <ImageView fitHeight="55.0" fitWidth="52.0" layoutX="33.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@noun_candy_3582024.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="31.0" layoutY="90.0" text="Candies" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="chocolate" layoutX="180.0" layoutY="50.0" onMouseClicked="#dropChocolate" prefHeight="119.0" prefWidth="119.0" style="-fx-background-color: #6836f5; -fx-background-radius: 20;">
+               <children>
+                  <ImageView fitHeight="44.0" fitWidth="52.0" layoutX="37.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@noun_Chocolate_1564420.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="21.0" layoutY="90.0" text="Chocolates" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="drink" layoutX="34.0" layoutY="50.0" onMouseClicked="#dropDrink" prefHeight="121.0" prefWidth="121.0" style="-fx-background-color: #587bf6; -fx-background-radius: 20;">
+               <children>
+                  <ImageView fitHeight="46.0" fitWidth="52.0" layoutX="37.0" layoutY="35.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@noun_Drink_3583231.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="38.0" layoutY="90.0" text="Drinks" textFill="WHITE">
+                     <font>
+                        <Font name="Arial Bold" size="14.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+            <ScrollPane layoutX="332.0" layoutY="70.0" prefHeight="261.0" prefWidth="520.0" stylesheets="@table.css">
+               <content>
+                  <VBox fx:id="vbItemList" prefHeight="56.0" prefWidth="518.0" />
+               </content>
+            </ScrollPane>
+            <Button fx:id="btAdd" layoutX="333.0" layoutY="675.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="30.0" prefWidth="90.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #5cbdf9;" styleClass="button-add" text="Add" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+               <stylesheets>
+                  <URL value="@style.css" />
+                  <URL value="@table.css" />
+               </stylesheets>
+            </Button>
+            <JFXTextField fx:id="lbItemCode" alignment="CENTER" focusColor="#587bf6" layoutX="200.0" layoutY="423.0" prefHeight="37.0" prefWidth="100.0" style="-fx-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="lbItemName" alignment="CENTER" focusColor="#587bf6" layoutX="200.0" layoutY="485.0" prefHeight="37.0" prefWidth="100.0" style="-fx-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="lbItemPrice" alignment="CENTER" focusColor="#587bf6" layoutX="200.0" layoutY="540.0" prefHeight="37.0" prefWidth="100.0" style="-fx-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="lbItemQuantity" alignment="CENTER" focusColor="#587bf6" layoutX="200.0" layoutY="605.0" prefHeight="37.0" prefWidth="100.0" style="-fx-text-fill: white;" unFocusColor="WHITE">
+               <font>
+                  <Font name="Arial" size="16.0" />
+               </font>
+            </JFXTextField>
+            <Label alignment="CENTER" layoutX="342.0" layoutY="50.0" text="Item Code" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="437.0" layoutY="50.0" text="Item Name" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="557.0" layoutY="50.0" text="Price" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="642.0" layoutY="50.0" text="Quantity" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" layoutX="755.0" layoutY="50.0" text="Status" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <ChoiceBox fx:id="cbCategory" layoutX="200.0" layoutY="370.0" prefHeight="27.0" prefWidth="106.0" stylesheets="@table.css" />
+            <ScrollPane layoutX="472.0" layoutY="370.0" prefHeight="279.0" prefWidth="325.0" stylesheets="@table.css">
+               <content>
+                  <VBox fx:id="vbCashList" prefHeight="50.0" prefWidth="294.0" />
+               </content>
+            </ScrollPane>
+            <Label layoutX="512.0" layoutY="350.0" text="Cash" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <Label layoutX="647.0" layoutY="350.0" text="Amount" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="15.0" />
+               </font>
+            </Label>
+            <Button fx:id="btConfirm" layoutX="756.0" layoutY="675.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="30.0" prefWidth="90.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #61d38b;" styleClass="button-report" stylesheets="@button.css" text="Confirm" textFill="WHITE">
+               <font>
+                  <Font name="Arial Bold" size="16.0" />
+               </font>
+            </Button>
+            <Label fx:id="lbMessage" alignment="CENTER" layoutX="534.0" layoutY="730.0" prefWidth="250.0" textFill="#61d38b">
+               <font>
+                  <Font name="Arial" size="15.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Button fx:id="btExit" layoutX="1215.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="37.0" prefWidth="41.0" style="-fx-background-color: transparent;">
+         <graphic>
+            <ImageView fitHeight="23.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@noun_Cross_264585.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Separator layoutX="866.0" layoutY="70.0" opacity="0.29" orientation="VERTICAL" prefHeight="627.0" prefWidth="25.0" />
+      <ScrollPane layoutX="915.0" layoutY="70.0" prefHeight="573.0" prefWidth="313.0" stylesheets="@table.css">
+         <content>
+            <VBox fx:id="vbNameList" prefHeight="50.0" prefWidth="294.0" />
+         </content>
+      </ScrollPane>
+      <Label layoutX="957.0" layoutY="50.0" text="Name" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="1065.0" layoutY="50.0" text="Role" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="15.0" />
+         </font>
+      </Label>
+      <Button fx:id="btReport" layoutX="1137.0" layoutY="675.0" mnemonicParsing="false" onAction="#handleMouseEvent" prefHeight="30.0" prefWidth="90.0" style="-fx-border-radius: 20; -fx-background-radius: 20; -fx-border-color: #587bf6;" styleClass="button-report" stylesheets="@style.css" text="Report" textFill="WHITE">
+         <font>
+            <Font name="Arial Bold" size="16.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

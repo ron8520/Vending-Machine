@@ -1,0 +1,90 @@
+.scroll-pane{
+    -fx-background-color: #212440;
+}
+
+.scroll-pane > .viewport{
+    -fx-background-color: transparent;
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:transparent;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #2e3257;
+    -fx-background-radius: 5em;
+}
+
+.scroll-pane > .corner{
+    -fx-background-color: #212440;
+}
+
+.button-add{
+    -fx-background-color: #212440;
+}
+
+.button-add:hover{
+    -fx-background-color: #5cbdf9;
+}
+
+.button-add:pressed{
+    -fx-background-color: #212440;
+}
+
+.button-remove{
+    -fx-background-color: #212440;
+}
+
+.button-remove:hover{
+    -fx-background-color: #e35d68;
+}
+
+.button-remove:pressed{
+    -fx-background-color: #212440;
+}
+
+.button-change:{
+    -fx-background-color: transparent;
+}
+
+.button-change:hover{
+    -fx-background-color: #ce7c5b;
+}
+
+.button-change:pressed:{
+    -fx-background-color: transparent;
+}
+
+.choice-box{
+    -fx-background-color: #2e3257;
+    -fx-mark-color: white;
+}
+
+.choice-box .context-menu{
+    -fx-background-color: #212440;
+}
+
+.choice-box .menu-item > .label{
+    -fx-text-fill: white;
+}
+
+.choice-box > .label{
+    -fx-text-fill: white;
+}
+
+.choice-box .menu-item:focused{
+    -fx-background-color:  #5cbdf9;
+}

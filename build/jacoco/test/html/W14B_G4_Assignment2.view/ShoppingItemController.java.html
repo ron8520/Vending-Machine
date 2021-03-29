@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ShoppingItemController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.view</a> &gt; <span class="el_source">ShoppingItemController.java</span></div><h1>ShoppingItemController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.view;
+
+
+import W14B_G4_Assignment2.model.ShoppingCart;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.scene.Node;
+
+import java.sql.SQLException;
+
+import W14B_G4_Assignment2.database.*;
+import W14B_G4_Assignment2.model.*;
+
+public class ShoppingItemController extends Controller{
+
+    private double subTotal;
+    private int amount;
+    private double price;
+    private ShoppingCartController shoppingControl;
+    private Node node;
+    private MachineEngine model;
+
+    @FXML
+    private Label itemName;
+
+    @FXML
+    private Label itemAmount;
+
+    @FXML
+    private Label itemTotal;
+
+    @FXML
+    private Button btRemove;
+
+    @FXML
+    private Button btAdd;
+
+    @FXML
+    private Label itemPrice;
+
+    @FXML
+    private Button btMinus;
+
+<span class="nc" id="L46">    public ShoppingItemController(int quantity, double price, ShoppingCartController scc, MachineEngine model){</span>
+<span class="nc" id="L47">        this.price = price;</span>
+<span class="nc" id="L48">        this.amount = quantity;</span>
+<span class="nc" id="L49">        this.subTotal = this.price * this.amount;</span>
+<span class="nc" id="L50">        this.shoppingControl = scc;</span>
+<span class="nc" id="L51">        this.model = model;</span>
+<span class="nc" id="L52">    }</span>
+
+    @FXML
+    public void handleAction(ActionEvent event) throws SQLException{
+<span class="nc bnc" id="L56" title="All 4 branches missed.">        if(event.getSource() == btAdd &amp;&amp; ItemData.verifyItemQuantity(itemName.getText(), amount + 1)){</span>
+<span class="nc" id="L57">            amount += 1;</span>
+<span class="nc" id="L58">            subTotal = amount * price;</span>
+<span class="nc" id="L59">            shoppingControl.addTotal(price);</span>
+<span class="nc" id="L60">            model.addItem(itemName.getText(), 1);</span>
+        }
+
+<span class="nc bnc" id="L63" title="All 4 branches missed.">        if(event.getSource() == btMinus &amp;&amp; amount &gt; 0){</span>
+<span class="nc" id="L64">            amount -= 1;</span>
+<span class="nc" id="L65">            subTotal = amount * price;</span>
+<span class="nc" id="L66">            shoppingControl.removeTotal(price);</span>
+<span class="nc" id="L67">            model.removeItem(itemName.getText());</span>
+<span class="nc" id="L68">            model.addItem(itemName.getText(), amount);</span>
+        }
+
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        if(event.getSource() == btRemove){</span>
+<span class="nc" id="L72">            shoppingControl.removeTotal(subTotal);</span>
+<span class="nc" id="L73">            shoppingControl.removeItems(node);</span>
+<span class="nc" id="L74">            model.removeItem(itemName.getText());</span>
+        }
+
+<span class="nc" id="L77">        itemAmount.setText(Integer.toString(amount));</span>
+<span class="nc" id="L78">        itemTotal.setText(String.format(&quot;%.2f&quot;, subTotal));</span>
+<span class="nc" id="L79">    }</span>
+
+    public void setAllInfo(String name, int quantity, double price){
+<span class="nc" id="L82">        this.itemName.setText(name);</span>
+<span class="nc" id="L83">        this.itemAmount.setText(Integer.toString(quantity));</span>
+<span class="nc" id="L84">        this.itemPrice.setText(String.format(&quot;%.2f&quot;, price));</span>
+<span class="nc" id="L85">        this.itemTotal.setText(String.format(&quot;%.2f&quot;, price*quantity));</span>
+<span class="nc" id="L86">    }</span>
+
+    public void setNode(Node node){
+<span class="nc" id="L89">        this.node = node;</span>
+<span class="nc" id="L90">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

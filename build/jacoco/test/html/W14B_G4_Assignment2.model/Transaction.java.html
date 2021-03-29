@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Transaction.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.model</a> &gt; <span class="el_source">Transaction.java</span></div><h1>Transaction.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.model;
+import java.util.*;
+
+public class Transaction{
+
+    private Date date;
+    private List&lt;String&gt; items;
+    private double money_paid;
+    private double money_return;
+    private Method method;
+
+<span class="fc" id="L12">    public Transaction(Date date, List&lt;String&gt; items, double money_paid, double money_return, Method method){</span>
+<span class="fc" id="L13">        this.date = date;</span>
+<span class="fc" id="L14">        this.items = items;</span>
+<span class="fc" id="L15">        this.money_paid = money_paid;</span>
+<span class="fc" id="L16">        this.money_return = money_return;</span>
+<span class="fc" id="L17">        this.method = method;</span>
+<span class="fc" id="L18">    }</span>
+
+    public Date getDate(){
+<span class="fc" id="L21">        return this.date;</span>
+    }
+
+    public List&lt;String&gt; getItems(){
+<span class="fc" id="L25">        return this.items;</span>
+    }
+
+    public double getPaid(){
+<span class="fc" id="L29">        return this.money_paid;</span>
+    }
+
+    public double getChange(){
+<span class="fc" id="L33">        return this.money_return;</span>
+    }
+
+    public Method getMethod(){
+<span class="fc" id="L37">        return this.method;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

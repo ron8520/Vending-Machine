@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.database</a> &gt; <span class="el_source">UserData.java</span></div><h1>UserData.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.database;
+
+import java.awt.*;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.*;
+import java.util.HashMap;
+
+<span class="nc" id="L12">public class UserData {</span>
+
+    public static Boolean verifyUser(String username, String password) throws SQLException {
+<span class="fc" id="L15">        String sql = &quot;select COUNT(*) from users where username = ? and password = ?&quot;;</span>
+<span class="fc" id="L16">        String[] param = {username, password};</span>
+<span class="fc" id="L17">        ResultSet result =  DBConnection.fetch(sql,param);</span>
+<span class="pc bpc" id="L18" title="1 of 2 branches missed.">        if(result == null){</span>
+<span class="nc" id="L19">            return false;</span>
+        }
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        if (result.next()){</span>
+<span class="fc" id="L22">            int count = result.getInt(&quot;count&quot;);</span>
+
+<span class="fc bfc" id="L24" title="All 2 branches covered.">            if(count== 1){</span>
+<span class="fc" id="L25">                return true;</span>
+            }else{
+<span class="fc" id="L27">                return false;</span>
+            }
+        }else{
+<span class="nc" id="L30">            return false;</span>
+        }
+    }
+
+    /*public static boolean ifExist(String username, String password) throws SQLException{
+        String ifExist = &quot;select COUNT(*) from users where username = ?;&quot;;
+        String[] ifExistParam = {username};
+        ResultSet result =  DBConnection.fetch(ifExist,ifExistParam);
+        if(result == null){
+            return false;
+        }
+        if (result.next()){
+            int count = result.getInt(&quot;count&quot;);
+            if(count!= 0){
+                return false;
+            }
+        }
+        return true;
+    }*/
+
+    public static boolean insertUser(String username, String password) throws SQLException{
+<span class="fc" id="L51">        String sql = &quot;insert into Users values (?,?, 'customer');&quot;;</span>
+<span class="fc" id="L52">        String[] param = {username, password};</span>
+<span class="fc" id="L53">        DBConnection.execute(sql,param);</span>
+<span class="fc" id="L54">        return true;</span>
+    }
+
+    public static String getUserRole(String username) throws SQLException{
+<span class="fc" id="L58">        String sql = &quot;select role from users where username = ?&quot;;</span>
+<span class="fc" id="L59">        String[] param = {username};</span>
+<span class="fc" id="L60">        ResultSet result = DBConnection.fetch(sql,param);</span>
+<span class="pc bpc" id="L61" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L62">            return null;</span>
+        }
+<span class="fc bfc" id="L64" title="All 2 branches covered.">        if (result.next()){</span>
+<span class="fc" id="L65">            String ret = result.getString(&quot;role&quot;);</span>
+<span class="fc" id="L66">            return ret;</span>
+        }
+<span class="fc" id="L68">        return null;</span>
+    }
+
+
+    public static HashMap&lt;String, String&gt; getUser() throws SQLException{
+<span class="fc" id="L73">        String sql = &quot;select username, role from users&quot;;</span>
+<span class="fc" id="L74">        ResultSet result = DBConnection.fetch(sql);</span>
+
+<span class="pc bpc" id="L76" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L77">            return null;</span>
+        }
+
+<span class="fc" id="L80">        HashMap&lt;String, String&gt; users = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L81" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L82">            String name = result.getString(&quot;username&quot;);</span>
+<span class="fc" id="L83">            String role = result.getString(&quot;role&quot;);</span>
+
+<span class="fc bfc" id="L85" title="All 2 branches covered.">            if(!name.equals(&quot;Anonymous&quot;))</span>
+<span class="fc" id="L86">                users.put(name, role);</span>
+<span class="fc" id="L87">        }</span>
+
+<span class="fc" id="L89">        return users;</span>
+    }
+
+    public static void updateRole(String username, String role) throws SQLException{
+<span class="fc" id="L93">        String sql = &quot;update users set role = ? where username = ? &quot;;</span>
+<span class="fc" id="L94">        String[] param = {role, username};</span>
+
+<span class="fc" id="L96">        DBConnection.update(sql,param);</span>
+
+<span class="fc" id="L98">    }</span>
+
+    public static boolean generateUserReport() throws SQLException, IOException {
+<span class="fc" id="L101">        String sql = &quot;select username, role from users&quot;;</span>
+<span class="fc" id="L102">        ResultSet result = DBConnection.fetch(sql);</span>
+
+<span class="pc bpc" id="L104" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L105">            return false;</span>
+        }
+
+<span class="fc" id="L108">        HashMap&lt;String, String&gt; userList = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L109" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L110">            String nameTemp = result.getString(&quot;username&quot;);</span>
+<span class="fc" id="L111">            String roleTemp = result.getString(&quot;role&quot;);</span>
+<span class="fc" id="L112">            userList.put(nameTemp, roleTemp);</span>
+<span class="fc" id="L113">        }</span>
+
+<span class="fc" id="L115">        FileWriter writer = new FileWriter(&quot;OwnerReport2.txt&quot;);</span>
+<span class="fc" id="L116">        writer.write(&quot;name\trole\n&quot;);</span>
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        for(String i : userList.keySet()) {</span>
+<span class="fc" id="L118">            writer.write(i + &quot;\t&quot;);</span>
+<span class="fc" id="L119">            writer.write(userList.get(i) + &quot;\n&quot;);</span>
+<span class="fc" id="L120">        }</span>
+<span class="fc" id="L121">        writer.close();</span>
+<span class="fc" id="L122">        return true;</span>
+    }
+
+    public static boolean verifyUsername(String username) throws SQLException {
+<span class="fc" id="L126">        String sql = &quot;select COUNT(*) from users where username = ? &quot;;</span>
+<span class="fc" id="L127">        String[] param = {username};</span>
+<span class="fc" id="L128">        ResultSet result =  DBConnection.fetch(sql,param);</span>
+<span class="pc bpc" id="L129" title="1 of 2 branches missed.">        if(result == null){</span>
+<span class="nc" id="L130">            return false;</span>
+        }
+<span class="fc" id="L132">        return true;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

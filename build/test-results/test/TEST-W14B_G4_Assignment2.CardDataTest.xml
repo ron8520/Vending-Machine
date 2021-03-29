@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="W14B_G4_Assignment2.CardDataTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-11-19T11:48:18" hostname="192-168-1-108.tpgi.com.au" time="2.242">
+  <properties/>
+  <testcase name="testSavedDetail()" classname="W14B_G4_Assignment2.CardDataTest" time="2.242"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

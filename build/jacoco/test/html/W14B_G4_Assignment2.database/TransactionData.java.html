@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionData.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.database</a> &gt; <span class="el_source">TransactionData.java</span></div><h1>TransactionData.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.database;
+
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.*;
+
+import java.util.*;
+
+<span class="nc" id="L12">public class TransactionData{</span>
+    public static boolean makeTransaction(String sql, String[] param) throws SQLException{
+<span class="fc" id="L14">        DBConnection.update(sql, param);</span>
+<span class="fc" id="L15">        return true;</span>
+    }
+
+    public static int getTransactionNum() throws SQLException{
+<span class="fc" id="L19">        String sql = &quot;select COUNT(*) from transactions&quot;;</span>
+<span class="fc" id="L20">        ResultSet result = DBConnection.fetch(sql);</span>
+
+<span class="pc bpc" id="L22" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L23">            return 0;</span>
+        }
+
+<span class="pc bpc" id="L26" title="1 of 2 branches missed.">        if (result.next()){</span>
+<span class="fc" id="L27">            int count = result.getInt(&quot;count&quot;);</span>
+<span class="fc" id="L28">            return count;</span>
+        }
+
+<span class="nc" id="L31">        return 0;</span>
+    }
+
+    public static boolean generateCancelledTrans() throws SQLException, IOException {
+<span class="nc" id="L35">        String sql = &quot;select username, date_time, status from transactions where status = 'Cancelled'&quot;;</span>
+<span class="nc" id="L36">        ResultSet result = DBConnection.fetch(sql);</span>
+
+<span class="nc bnc" id="L38" title="All 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L39">            return false;</span>
+        }
+
+<span class="nc" id="L42">        List&lt;List&lt;String&gt;&gt; cancelReports = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L43" title="All 2 branches missed.">        while (result.next()){</span>
+<span class="nc" id="L44">            List&lt;String&gt; eachReport = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L45">            String nameTemp = result.getString(&quot;username&quot;);</span>
+<span class="nc" id="L46">            String timeTemp = String.valueOf(result.getTimestamp(&quot;date_time&quot;));</span>
+<span class="nc" id="L47">            String status = result.getString(&quot;status&quot;);</span>
+<span class="nc" id="L48">            eachReport.add(nameTemp);</span>
+<span class="nc" id="L49">            eachReport.add(timeTemp);</span>
+<span class="nc" id="L50">            eachReport.add(status);</span>
+<span class="nc" id="L51">            cancelReports.add(eachReport);</span>
+<span class="nc" id="L52">        }</span>
+
+<span class="nc" id="L54">        FileWriter writer = new FileWriter(&quot;OwnerReport1.txt&quot;);</span>
+<span class="nc" id="L55">        writer.write(&quot;username\tdate_time\tstatus\n&quot;);</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        for(List&lt;String&gt; eachList : cancelReports) {</span>
+<span class="nc bnc" id="L57" title="All 2 branches missed.">            for(String i : eachList) {</span>
+<span class="nc" id="L58">                writer.write(i + &quot;\t&quot;);</span>
+<span class="nc" id="L59">            }</span>
+<span class="nc" id="L60">            writer.write(&quot;\n&quot;);</span>
+<span class="nc" id="L61">        }</span>
+<span class="nc" id="L62">        writer.close();</span>
+<span class="nc" id="L63">        return true;</span>
+    }
+
+    public static boolean generateAllTrans() throws SQLException, IOException {
+<span class="fc" id="L67">        String sql = &quot;select * from transactions&quot;;</span>
+<span class="fc" id="L68">        ResultSet result = DBConnection.fetch(sql);</span>
+
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L71">            return false;</span>
+        }
+
+<span class="fc" id="L74">        HashMap&lt;String, String[]&gt; transList = new HashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L76">            String idTemp = result.getString(&quot;transaction_id&quot;); // store as String</span>
+<span class="fc" id="L77">            String methodTemp = result.getString(&quot;method&quot;);</span>
+<span class="fc" id="L78">            String paidTemp = result.getString(&quot;paid_amount&quot;);</span>
+<span class="fc" id="L79">            String returnTemp = result.getString(&quot;return_change&quot;);</span>
+<span class="fc" id="L80">            String timeTemp = String.valueOf(result.getTimestamp(&quot;date_time&quot;));</span>
+<span class="fc" id="L81">            String nameTemp = result.getString(&quot;username&quot;);</span>
+<span class="fc" id="L82">            String status = result.getString(&quot;status&quot;);</span>
+<span class="fc" id="L83">            String[] arr = {idTemp, methodTemp, paidTemp, returnTemp, timeTemp, status};</span>
+<span class="fc" id="L84">            transList.put(nameTemp, arr);</span>
+<span class="fc" id="L85">        }</span>
+
+
+<span class="fc" id="L88">        FileWriter writer = new FileWriter(&quot;CashierReport2.txt&quot;);</span>
+<span class="fc" id="L89">        writer.write(&quot;transaction_id\tmethod\tpaid_amount\treturn_change\tdate_time\tusername\tstatus\n&quot;);</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        for(String i : transList.keySet()) {</span>
+<span class="fc" id="L91">            writer.write(transList.get(i)[0] + &quot;\t&quot;);</span>
+<span class="fc" id="L92">            writer.write(transList.get(i)[1] + &quot;\t&quot;);</span>
+<span class="fc" id="L93">            writer.write(transList.get(i)[2] + &quot;\t&quot;);</span>
+<span class="fc" id="L94">            writer.write(transList.get(i)[3] + &quot;\t&quot;);</span>
+<span class="fc" id="L95">            writer.write(transList.get(i)[4] + &quot;\t&quot;);</span>
+<span class="fc" id="L96">            writer.write(i + &quot;\t&quot;);</span>
+<span class="fc" id="L97">            writer.write(transList.get(i)[5] + &quot;\n&quot;);</span>
+<span class="fc" id="L98">        }</span>
+<span class="fc" id="L99">        writer.close();</span>
+<span class="fc" id="L100">        return true;</span>
+    }
+
+    public static LinkedHashMap&lt;String, String&gt; getRecentPurchase(String username) throws SQLException {
+<span class="fc" id="L104">        String sql = &quot;select username, item_name, category from &quot; +</span>
+                &quot;transaction_sold_items tsi natural join transactions join items i on (tsi.item_name = i.name ) &quot; +
+                &quot;where username = ? and status = 'Completed' order by transaction_id desc limit 5&quot;;
+<span class="fc" id="L107">        String[] param = {username};</span>
+<span class="fc" id="L108">        ResultSet result = DBConnection.fetch(sql, param);</span>
+
+<span class="pc bpc" id="L110" title="1 of 2 branches missed.">        if (result == null){</span>
+<span class="nc" id="L111">            return null;</span>
+        }
+
+<span class="fc" id="L114">        LinkedHashMap&lt;String, String&gt; recents = new LinkedHashMap&lt;&gt;();</span>
+<span class="fc bfc" id="L115" title="All 2 branches covered.">        while (result.next()){</span>
+<span class="fc" id="L116">            String itemTemp = result.getString(&quot;item_name&quot;);</span>
+<span class="fc" id="L117">            String categoryTemp = result.getString(&quot;category&quot;);</span>
+<span class="fc" id="L118">            recents.put(itemTemp, categoryTemp);</span>
+<span class="fc" id="L119">        }</span>
+<span class="fc" id="L120">        return recents;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DefaultController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">W14B_G4_Assignment2</a> &gt; <a href="index.source.html" class="el_package">W14B_G4_Assignment2.view</a> &gt; <span class="el_source">DefaultController.java</span></div><h1>DefaultController.java</h1><pre class="source lang-java linenums">package W14B_G4_Assignment2.view;
+
+import W14B_G4_Assignment2.database.*;
+import com.jfoenix.controls.JFXDrawer;
+import com.jfoenix.controls.JFXHamburger;
+import com.jfoenix.controls.JFXRippler;
+import com.jfoenix.transitions.hamburger.HamburgerNextArrowBasicTransition;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.scene.input.MouseEvent;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.HashMap;
+import java.sql.SQLException;
+
+public class DefaultController extends Controller{
+
+    @FXML
+    private Button btExit, btUser, btSetting, btShopping;
+    private LoginController loginControl;
+    protected static HistoryController historyControl;
+    private ShoppingCartController shoppingControl;
+    private SellerController sellerControl;
+    private CashierController cashierControl;
+    private OwnerController ownerControl;
+    private URL loginUrl, historyUrl, itemUrl, shoppingUrl, sellerUrl, cashierUrl, ownerUrl;
+    private FXMLLoader loginLoader, historyLoader, shoppingLoader, sellerLoader, cashierLoader, ownerLoader;
+    private Scene loginScene, shoppingScene, sellerScene, cashierScene, ownerScene;
+    private Parent loginParent, shoppingParent, sellerParent, cashierParent, ownerParent;
+    private Stage stage;
+    private List&lt;Node&gt; nodes;
+
+    @FXML
+    private VBox items;
+
+    @FXML
+    private AnchorPane basePane, drink, candy, chip, chocolate, current;
+
+    @FXML
+    private Label name, type;
+
+    @FXML
+    private JFXDrawer drawer;
+
+    @FXML
+    private JFXHamburger hamburger;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resources){
+        try{
+<span class="nc" id="L66">            setStage();</span>
+<span class="nc" id="L67">            setFXMLLoader();</span>
+
+            //loading history context into sidePane
+<span class="nc" id="L70">            VBox box = this.historyLoader.load();</span>
+<span class="nc" id="L71">            historyControl.updateHistory(name);</span>
+<span class="nc" id="L72">            drawer.open();</span>
+<span class="nc" id="L73">            drawer.setSidePane(box);</span>
+
+            //set up bubble effect for each category pane
+<span class="nc" id="L76">            setRippler();</span>
+
+            //set the ActionEvent for icon hamburger
+<span class="nc" id="L79">            setHamburgerEvent();</span>
+
+          //adding node into scroll pane VBox
+<span class="nc" id="L82">            addItems(&quot;Drinks&quot;);</span>
+
+<span class="nc" id="L84">        }catch(Exception e){</span>
+<span class="nc" id="L85">            e.printStackTrace();</span>
+<span class="nc" id="L86">        }</span>
+
+<span class="nc" id="L88">    }</span>
+
+<span class="nc" id="L90">    public DefaultController(){</span>
+
+<span class="nc" id="L92">    }</span>
+
+    public void setFXMLLoader() throws IOException, SQLException {
+<span class="nc" id="L95">        this.loginUrl = new File(&quot;src/main/resources/login.fxml&quot;).toURL();</span>
+<span class="nc" id="L96">        this.historyUrl = new File(&quot;src/main/resources/history.fxml&quot;).toURL();</span>
+<span class="nc" id="L97">        this.itemUrl = new File(&quot;src/main/resources/tableItem.fxml&quot;).toURL();</span>
+<span class="nc" id="L98">        this.shoppingUrl = new File(&quot;src/main/resources/shoppingCart.fxml&quot;).toURL();</span>
+<span class="nc" id="L99">        this.sellerUrl = new File(&quot;src/main/resources/Seller.fxml&quot;).toURL();</span>
+<span class="nc" id="L100">        this.cashierUrl = new File(&quot;src/main/resources/Cashier.fxml&quot;).toURL();</span>
+<span class="nc" id="L101">        this.ownerUrl = new File(&quot;src/main/resources/Owner.fxml&quot;).toURL();</span>
+
+<span class="nc" id="L103">        this.historyLoader = new FXMLLoader();</span>
+<span class="nc" id="L104">        this.loginLoader = new FXMLLoader();</span>
+<span class="nc" id="L105">        this.shoppingLoader = new FXMLLoader();</span>
+<span class="nc" id="L106">        this.sellerLoader = new FXMLLoader();</span>
+<span class="nc" id="L107">        this.cashierLoader = new FXMLLoader();</span>
+<span class="nc" id="L108">        this.ownerLoader = new FXMLLoader();</span>
+
+
+<span class="nc" id="L111">        this.loginControl = new LoginController(stage, name, type, this);</span>
+<span class="nc" id="L112">        this.historyControl = new HistoryController(stage);</span>
+<span class="nc" id="L113">        this.shoppingControl = new ShoppingCartController(this);</span>
+<span class="nc" id="L114">        this.sellerControl = new SellerController(stage);</span>
+<span class="nc" id="L115">        this.cashierControl = new CashierController(stage);</span>
+<span class="nc" id="L116">        this.ownerControl = new OwnerController(stage);</span>
+
+<span class="nc" id="L118">        this.loginLoader.setLocation(this.loginUrl);</span>
+<span class="nc" id="L119">        this.loginLoader.setController(this.loginControl);</span>
+<span class="nc" id="L120">        this.historyLoader.setLocation((this.historyUrl));</span>
+<span class="nc" id="L121">        this.historyLoader.setController(this.historyControl);</span>
+<span class="nc" id="L122">        this.shoppingLoader.setLocation(this.shoppingUrl);</span>
+<span class="nc" id="L123">        this.shoppingLoader.setController(this.shoppingControl);</span>
+<span class="nc" id="L124">        this.sellerLoader.setLocation(this.sellerUrl);</span>
+<span class="nc" id="L125">        this.sellerLoader.setController(this.sellerControl);</span>
+<span class="nc" id="L126">        this.cashierLoader.setLocation(this.cashierUrl);</span>
+<span class="nc" id="L127">        this.cashierLoader.setController(this.cashierControl);</span>
+<span class="nc" id="L128">        this.ownerLoader.setLocation(this.ownerUrl);</span>
+<span class="nc" id="L129">        this.ownerLoader.setController(this.ownerControl);</span>
+
+<span class="nc" id="L131">        this.loginControl.addHistory(this.historyControl,this);</span>
+<span class="nc" id="L132">        this.loginParent = this.loginLoader.load();</span>
+
+<span class="nc" id="L134">        this.loginScene = new Scene(loginParent);</span>
+
+<span class="nc" id="L136">        this.shoppingParent = this.shoppingLoader.load();</span>
+<span class="nc" id="L137">        this.shoppingScene = new Scene(shoppingParent);</span>
+
+<span class="nc" id="L139">        this.sellerParent = this.sellerLoader.load();</span>
+<span class="nc" id="L140">        this.sellerScene = new Scene(sellerParent);</span>
+
+<span class="nc" id="L142">        this.cashierParent = this.cashierLoader.load();</span>
+<span class="nc" id="L143">        this.cashierScene = new Scene(cashierParent);</span>
+
+<span class="nc" id="L145">        this.ownerParent = this.ownerLoader.load();</span>
+<span class="nc" id="L146">        this.ownerScene = new Scene(ownerParent);</span>
+
+<span class="nc" id="L148">    }</span>
+
+    @FXML
+    public void handleMouseEvent(ActionEvent event) throws IOException, SQLException {
+
+<span class="nc bnc" id="L153" title="All 2 branches missed.">        if(event.getSource() == this.btExit){</span>
+<span class="nc" id="L154">            System.exit(0);</span>
+        }
+
+<span class="nc bnc" id="L157" title="All 2 branches missed.">        if(event.getSource() == this.btUser){</span>
+<span class="nc" id="L158">            stage.setScene(this.loginScene);</span>
+<span class="nc" id="L159">            stage.show();</span>
+        }
+
+<span class="nc bnc" id="L162" title="All 2 branches missed.">        if(event.getSource() == this.btShopping &amp;&amp;</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">                UserData.getUserRole(name.getText()).toLowerCase().equals(&quot;customer&quot;)){</span>
+<span class="nc" id="L164">            stage.setScene(this.shoppingScene);</span>
+<span class="nc" id="L165">            stage.show();</span>
+        }
+
+<span class="nc bnc" id="L168" title="All 2 branches missed.">        if(event.getSource() == this.btSetting){</span>
+<span class="nc bnc" id="L169" title="All 2 branches missed.">            if( UserData.getUserRole(name.getText()).toLowerCase().equals(&quot;seller&quot;) ) {</span>
+<span class="nc" id="L170">                stage.setScene(this.sellerScene);</span>
+<span class="nc" id="L171">                stage.show();</span>
+<span class="nc bnc" id="L172" title="All 2 branches missed.">            } else if( UserData.getUserRole(name.getText()).toLowerCase().equals(&quot;cashier&quot;) ) {</span>
+<span class="nc" id="L173">                stage.setScene(this.cashierScene);</span>
+<span class="nc" id="L174">                stage.show();</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">            } else if( UserData.getUserRole(name.getText()).toLowerCase().equals(&quot;owner&quot;) ) {</span>
+<span class="nc" id="L176">                stage.setScene(this.ownerScene);</span>
+<span class="nc" id="L177">                stage.show();</span>
+            }
+        }
+
+<span class="nc" id="L181">    }</span>
+
+    public void setStage(){
+<span class="nc" id="L184">        stage = new Stage();</span>
+<span class="nc" id="L185">        stage.initStyle(StageStyle.UNDECORATED);</span>
+<span class="nc" id="L186">    }</span>
+
+    public void setRippler(){
+<span class="nc" id="L189">        double xPos = 90;</span>
+<span class="nc" id="L190">        double yPos = 150;</span>
+<span class="nc bnc" id="L191" title="All 2 branches missed.">        for(int i = 0; i &lt; 4; i++){</span>
+<span class="nc" id="L192">            String color = &quot;&quot;;</span>
+<span class="nc bnc" id="L193" title="All 5 branches missed.">            switch (i) {</span>
+                case 0:
+<span class="nc" id="L195">                    current = drink;</span>
+<span class="nc" id="L196">                    color = &quot;#2b57f3&quot;;</span>
+<span class="nc" id="L197">                    break;</span>
+                case 1:
+<span class="nc" id="L199">                    current = chocolate;</span>
+<span class="nc" id="L200">                    color = &quot;#5620f0&quot;;</span>
+<span class="nc" id="L201">                    break;</span>
+                case 2:
+<span class="nc" id="L203">                    current = candy;</span>
+<span class="nc" id="L204">                    color = &quot;#e03b48&quot;;</span>
+<span class="nc" id="L205">                    break;</span>
+                case 3:
+<span class="nc" id="L207">                    current = chip;</span>
+<span class="nc" id="L208">                    color = &quot;#2ea25b&quot;;</span>
+                    break;
+            }
+
+<span class="nc" id="L212">            JFXRippler rippler = new JFXRippler(current);</span>
+<span class="nc" id="L213">            rippler.setRipplerFill(Color.web(color));</span>
+<span class="nc" id="L214">            rippler.setMaskType(JFXRippler.RipplerMask.RECT);</span>
+<span class="nc" id="L215">            rippler.setLayoutX(xPos);</span>
+<span class="nc" id="L216">            rippler.setLayoutY(yPos);</span>
+<span class="nc" id="L217">            basePane.getChildren().add(rippler);</span>
+
+<span class="nc" id="L219">            xPos += 150;</span>
+        }
+<span class="nc" id="L221">    }</span>
+
+    public void setHamburgerEvent(){
+<span class="nc" id="L224">        HamburgerNextArrowBasicTransition task2 = new HamburgerNextArrowBasicTransition(this.hamburger);</span>
+<span class="nc" id="L225">        task2.setRate(-1);</span>
+
+<span class="nc" id="L227">        this.hamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -&gt; {</span>
+<span class="nc" id="L228">            task2.setRate(task2.getRate() * -1);</span>
+<span class="nc" id="L229">            task2.play();</span>
+
+<span class="nc bnc" id="L231" title="All 2 branches missed.">            if(this.drawer.isOpened()){</span>
+<span class="nc" id="L232">                this.drawer.close();</span>
+            }else{
+<span class="nc" id="L234">                this.drawer.open();</span>
+            }
+<span class="nc" id="L236">        });</span>
+<span class="nc" id="L237">    }</span>
+
+    //when the mouse click the drink pane
+    public void dropDrink() throws IOException, SQLException{
+<span class="nc" id="L241">        this.items.getChildren().clear();</span>
+<span class="nc" id="L242">        addItems(&quot;Drinks&quot;);</span>
+<span class="nc" id="L243">    }</span>
+
+    //when the mouse click the chocolate pane
+    public void dropChocolate() throws IOException, SQLException{
+<span class="nc" id="L247">        this.items.getChildren().clear();</span>
+<span class="nc" id="L248">        addItems(&quot;Chocolates&quot;);</span>
+<span class="nc" id="L249">    }</span>
+
+    //when the mouse click candy pane
+    public void dropCandy() throws IOException, SQLException{
+<span class="nc" id="L253">        this.items.getChildren().clear();</span>
+<span class="nc" id="L254">        addItems(&quot;Candies&quot;);</span>
+<span class="nc" id="L255">    }</span>
+
+    //when the mouse click chip pane
+    public void dropChip() throws IOException, SQLException{
+<span class="nc" id="L259">        this.items.getChildren().clear();</span>
+<span class="nc" id="L260">        addItems(&quot;Chips&quot;);</span>
+<span class="nc" id="L261">    }</span>
+
+    public void addItems(String type) throws IOException, SQLException{
+<span class="nc" id="L264">        nodes = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L266">        HashMap&lt;String, String&gt; codes = ItemData.getItemCode(type);</span>
+<span class="nc" id="L267">        HashMap&lt;String, String&gt; prices = ItemData.getItemPrices(type);</span>
+<span class="nc" id="L268">        HashMap&lt;String, String&gt; quantities = ItemData.getItemQuantity(type);</span>
+
+<span class="nc bnc" id="L270" title="All 2 branches missed.">        for(String name:codes.keySet()){</span>
+<span class="nc" id="L271">            FXMLLoader itemL = new FXMLLoader();</span>
+<span class="nc" id="L272">            itemL.setLocation(itemUrl);</span>
+<span class="nc" id="L273">            ItemController itemC = new ItemController(shoppingControl);</span>
+<span class="nc" id="L274">            itemL.setController(itemC);</span>
+<span class="nc" id="L275">            nodes.add(itemL.load());</span>
+<span class="nc" id="L276">            itemC.setText(type, codes.get(name), name, prices.get(name));</span>
+<span class="nc" id="L277">            itemC.setStatus(Integer.parseInt(quantities.get(name)));</span>
+<span class="nc" id="L278">            items.getChildren().add(nodes.get(nodes.size() - 1));</span>
+<span class="nc" id="L279">        }</span>
+<span class="nc" id="L280">    }</span>
+
+    @FXML
+    public void logout() throws SQLException,IOException {
+<span class="nc bnc" id="L284" title="All 2 branches missed.">        if(name.getText().equals(&quot;Anonymous&quot;)){</span>
+<span class="nc" id="L285">            return;</span>
+        }else {
+<span class="nc" id="L287">            name.setText(&quot;Anonymous&quot;);</span>
+<span class="nc" id="L288">            historyControl.updateHistory(name);</span>
+<span class="nc" id="L289">            shoppingControl.refresh();</span>
+<span class="nc" id="L290">            type.setText(&quot;C&quot;);</span>
+        }
+
+<span class="nc" id="L293">    }</span>
+
+    public void historyUpdate() throws SQLException{
+<span class="nc" id="L296">        historyControl.updateHistory(name);</span>
+<span class="nc" id="L297">    }</span>
+
+    public ShoppingCartController getShoppingControl(){
+<span class="nc" id="L300">        return this.shoppingControl;</span>
+    }
+
+    public Stage getStage(){
+<span class="nc" id="L304">        return this.stage;</span>
+    }
+
+    public String getName(){
+<span class="nc" id="L308">        return this.name.getText();</span>
+    }
+
+    public void updateShoppingCartUserName(){
+<span class="nc" id="L312">        this.shoppingControl.setUsername(this.name.getText());</span>
+<span class="nc" id="L313">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
