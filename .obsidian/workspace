@@ -1,0 +1,100 @@
+{
+  "main": {
+    "id": "3e12f2738d49fde9",
+    "type": "split",
+    "children": [
+      {
+        "id": "90fe0e7018df326a",
+        "type": "leaf",
+        "active": true,
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "README.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "a51c8b54ec5788f7",
+    "type": "split",
+    "children": [
+      {
+        "id": "857a47be156b686b",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "ee44bcf8276d3005",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "a701d3115198f2b8",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "da50d0201a5411e3",
+    "type": "split",
+    "children": [
+      {
+        "id": "5fdfdddbc579ffa9",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "8b8c33cb88403a0d",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "README.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "lastOpenFiles": [
+    "README.md",
+    "IMG_0504.png",
+    "IMG_0503.png",
+    "IMG_0502.png",
+    "IMG_0500.png",
+    "IMG_0501.png",
+    "IMG_0499.png",
+    "IMG_0498.png",
+    "IMG_0496.png",
+    "IMG_0495.png"
+  ]
+}
